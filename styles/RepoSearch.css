@@ -1,0 +1,15 @@
+.repoSearchInput {
+    width: 272px;
+    height: 28px;
+    padding: 4px 5px 4px 13px;
+    border-radius: 6px;
+    gap: 114px;
+    border: 1px solid #30363D;
+    background: #0D1117;
+    color: #FFF;
+    /* font-family: Noto Sans; */
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
