@@ -1,8 +1,13 @@
 import Header from "@/src/components/header";
 import React from "react";
+import RepoProvider from "@/src/components/RepoContext";
 
 export default function index() {
-  return <>
-    <Header />
-  </>;
+  return (
+    <main>
+      <RepoProvider>
+        <Header />
+      </RepoProvider>
+    </main>
+  );
 }

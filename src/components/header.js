@@ -2,6 +2,7 @@ import React from 'react';
 import { Avatar, Badge, Tag } from 'antd';
 import Image from 'next/image';
 import { UserOutlined, GithubOutlined, ForkOutlined, StarOutlined } from '@ant-design/icons';
+import RepoSearch from '../screens/RepoSearch';
 
 const forkAndStars = [
     {
@@ -28,9 +29,7 @@ const Header = () => {
 
                 <div className='icon_input_div'>
                     <GithubOutlined className='githuboutlined' />
-                    <input
-                        className='search_input'
-                        placeholder="Search or jump to…" />
+                    <RepoSearch />
                 </div>
 
                 <div className='avatar_div' >
