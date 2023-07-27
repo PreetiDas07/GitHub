@@ -1,27 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Avatar, Badge, Tag } from 'antd';
 import Image from 'next/image';
 import { UserOutlined, GithubOutlined, ForkOutlined, StarOutlined } from '@ant-design/icons';
 import RepoSearch from '../screens/RepoSearch';
+import { RepoContext } from './RepoContext';
 
-const forkAndStars = [
-    {
-        url: '/assets/fork.svg',
-        alt: 'Fork',
-        name: 'Fork',
-        count: '355',
-        symbol: '▼',
-    },
-    {
-        url: '/assets/star.svg',
-        alt: 'Star',
-        name: 'Star',
-        count: '3.5k',
-        symbol: '▼',
-    }
-]
+
 
 const Header = () => {
+    const { repoSearchData } = useContext(RepoContext);
+    const forkAndStars = [
+        {
+            url: '/assets/fork.svg',
+            alt: 'Fork',
+            name: 'Fork',
+            count: repoSearchData?.stargazers_count,
+            symbol: '▼',
+        },
+        {
+            url: '/assets/star.svg',
+            alt: 'Star',
+            name: 'Star',
+            count: repoSearchData?.forks_count,
+            symbol: '▼',
+        }
+    ]
     return (
         <div>
 
@@ -48,7 +51,7 @@ const Header = () => {
 
                 <div className='repoName'>
                     <Image src='/assets/save.png' alt='save' width={16} height={16} />
-                    <p className='fullName'>FullName</p>
+                    <p className='fullName'>{repoSearchData ? repoSearchData?.full_name : 'user/repo'}</p>
                     <p className='public'>Public</p>
                 </div>
 
@@ -60,7 +63,7 @@ const Header = () => {
                                 <div className='fork_div'>
                                     <Image src={forkAndStar.url} alt={forkAndStar.alt} width={16} height={16} />
                                     <p>{forkAndStar.name}</p>
-                                    <p className='count'>{forkAndStar.count}</p>
+                                    <p className='count'>{forkAndStar.count ? forkAndStar.count : '0'}</p>
                                 </div>
 
                                 <div className='symbol'>
