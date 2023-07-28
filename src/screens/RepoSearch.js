@@ -1,28 +1,33 @@
 import React, { useContext, useRef, useEffect } from 'react';
 import { RepoContext } from '../components/RepoContext';
 import axios from 'axios';
-
 export default function RepoSearch() {
-
     const { searchTerm, setSearchTerm, setRepositories } = useContext(RepoContext);
     const inputRef = useRef(null);
-
+    const isSearchBarFocused = useRef(false);
     const handleChange = (event) => {
         setSearchTerm(event.target.value);
     };
     const handleSlashClick = () => {
         inputRef.current.focus();
     };
-
     const handleKeyDown = (e) => {
-        if (e.key === '/') {
+        if (e.key === '/' && !isSearchBarFocused.current) {
             e.preventDefault();
             inputRef.current.focus();
         }
     };
-
+    const handleBlur = () => {
+        isSearchBarFocused.current = false;
+    };
+    const handleFocus = () => {
+        isSearchBarFocused.current = true;
+    };
     useEffect(() => {
         document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
     }, []);
 
     const handleSubmit = async (event) => {
@@ -35,7 +40,6 @@ export default function RepoSearch() {
             const response = await axios.get(`https://api.github.com/search/repositories?q=${searchTerm}`);
             const repoData = response.data.items;
             const matchedRepository = repoData.find(repo => (repo.full_name === searchTerm.trim("")));
-
             if (!matchedRepository) {
                 alert("Some repositories have names that do not match the search term.");
             } else {
@@ -56,6 +60,8 @@ export default function RepoSearch() {
                     value={searchTerm}
                     onChange={handleChange}
                     onKeyDown={handleKeyDown}
+                    onBlur={handleBlur}
+                    onFocus={handleFocus}
                 />
                 <span className='slash' onClick={handleSlashClick}>/</span>
             </form>
