@@ -14,11 +14,14 @@
   gap: 8px;
   box-shadow: 0px -1px 0px 0px #21262d inset;
   border-bottom: 1px solid #30363d;
+  height: 48.5px;
 }
 
-.code {
-  padding-bottom: 9px;
+.rectangle {
+  margin-top: 9px;
+  border-radius: 6px;
 }
+
 .code_nav {
   color: #c9d1d9;
   text-align: center;

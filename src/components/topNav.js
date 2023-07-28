@@ -1,5 +1,5 @@
-import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
@@ -26,19 +26,21 @@ export default function TopNav() {
             <div
               className="code"
               key={index}
-              style={{
-                borderBottom:
-                  activeIndex === index ? "2px solid #F78166" : "none",
-                borderRadius: "2px",
-              }}
               onClick={() => handleUnderLine(index)}
             >
-              <Link href={data.href} passHref className="headingCode">
+              <Link href={data.href} className="headingCode">
                 <Image src={data.image} width={16} height={16} alt={data.alt} />
                 <span className="code_nav" style={{ width: data.width }}>
                   {data.navData}
                 </span>
               </Link>
+              <div
+                className="rectangle"
+                style={{
+                  borderBottom:
+                    activeIndex === index ? "2px solid #F78166" : "none",
+                }}
+              ></div>
             </div>
           );
         })}
@@ -50,19 +52,19 @@ export default function TopNav() {
 const headNavContent = [
   {
     navData: "Code",
-    image: "/assets/Frame.svg",
+    image: "/assets/frame.svg",
     href: "/",
     alt: "Code Icon",
   },
   {
     navData: "Issue",
-    image: "/assets/Issues.svg",
+    image: "/assets/issues.svg",
     href: "/issue",
     alt: "Issue Icon",
   },
   {
     navData: "Pull request",
-    image: "/assets/Pull requests.svg",
+    image: "/assets/pull requests.svg",
     href: "/pull-request",
     alt: "pull-request Icon",
     width: "85px",
@@ -75,25 +77,25 @@ const headNavContent = [
   },
   {
     navData: "Actions",
-    image: "/assets/Actions.svg",
+    image: "/assets/actions.svg",
     href: "/actions",
     alt: "Actions Icon",
   },
   {
     navData: "Projects",
-    image: "/assets/Projects.svg",
+    image: "/assets/projects.svg",
     href: "/projects",
     alt: "Projects Icon",
   },
   {
     navData: "Security",
-    image: "/assets/Security.svg",
+    image: "/assets/security.svg",
     href: "/security",
     alt: "Security Icon",
   },
   {
     navData: "Insights",
-    image: "/assets/Insights.svg",
+    image: "/assets/insights.svg",
     href: "/insights",
     alt: "Insights Icon",
   },
