@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Avatar, Badge, Tag } from 'antd';
 import Image from 'next/image';
-import { UserOutlined, GithubOutlined, ForkOutlined, StarOutlined } from '@ant-design/icons';
+import { UserOutlined, GithubOutlined, } from '@ant-design/icons';
 import RepoSearch from '../screens/RepoSearch';
 import { RepoContext } from './RepoContext';
 
@@ -9,6 +9,9 @@ import { RepoContext } from './RepoContext';
 
 const Header = () => {
     const { repoSearchData } = useContext(RepoContext);
+
+    const imageLoader = ({ src }) => src;
+
     const forkAndStars = [
         {
             url: '/assets/fork.svg',
@@ -42,7 +45,6 @@ const Header = () => {
                             icon={<UserOutlined className='userOutlined' />}
                         />
                     </Badge>
-                    <p className='pTag' >-</p>
                 </div>
 
             </div>
@@ -50,7 +52,7 @@ const Header = () => {
             <div className='repoName_div'>
 
                 <div className='repoName'>
-                    <Image src='/assets/save.png' alt='save' width={16} height={16} />
+                    <Image className='avatar_img' loader={imageLoader} src={repoSearchData ? repoSearchData?.owner?.avatar_url : '/assets/save.png'} alt='avatar' width={24} height={24} />
                     <p className='fullName'>{repoSearchData ? repoSearchData?.full_name : 'user/repo'}</p>
                     <p className='public'>Public</p>
                 </div>
