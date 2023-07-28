@@ -8,6 +8,7 @@ export default function index() {
     <main>
       <RepoProvider>
         <Header />
+        <TopNav />
       </RepoProvider>
     </main>
   );

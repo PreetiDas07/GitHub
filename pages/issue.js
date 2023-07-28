@@ -1,11 +1,14 @@
 import React from "react";
 import TopNav from "@/src/components/topNav";
+import Header from "@/src/components/header";
+import RepoProvider from "@/src/components/RepoContext";
 
 export default function Issues() {
   return (
-    <div className="issue">
+    <RepoProvider>
+      <Header />
       <TopNav />
-      Coming Soon
-    </div>
+      <div className="issue">Coming Soon</div>
+    </RepoProvider>
   );
 }
