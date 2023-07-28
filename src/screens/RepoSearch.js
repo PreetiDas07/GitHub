@@ -6,7 +6,7 @@ export default function RepoSearch() {
 
     const { searchTerm, setSearchTerm, setRepositories } = useContext(RepoContext);
     const inputRef = useRef(null);
-    
+
     const handleChange = (event) => {
         setSearchTerm(event.target.value);
     };

@@ -1,11 +1,16 @@
 import React from "react";
 import TopNav from "@/src/components/topNav";
+import RepoProvider from "@/src/components/RepoContext";
+import Header from "@/src/components/header";
 
 export default function Security() {
   return (
-    <div className="security">
+    <RepoProvider>
+      <Header />
       <TopNav />
-      Coming Soon
-    </div>
+      <div className="security">
+        Coming Soon
+      </div>
+    </RepoProvider>
   );
 }

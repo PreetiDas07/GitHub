@@ -1,11 +1,16 @@
 import React from "react";
 import TopNav from "@/src/components/topNav";
+import RepoProvider from "@/src/components/RepoContext";
+import Header from "@/src/components/header";
 
 export default function Projects() {
   return (
-    <div className="projects">
+    <RepoProvider>
+      <Header />
       <TopNav />
-      Coming Soon
-    </div>
+      <div className="projects">
+        Coming Soon
+      </div>
+    </RepoProvider>
   );
 }
