@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Avatar, Badge, Tag } from 'antd';
 import Image from 'next/image';
-import { UserOutlined, GithubOutlined, } from '@ant-design/icons';
+import { UserOutlined, GithubOutlined, CaretDownOutlined } from '@ant-design/icons';
 import RepoSearch from '../screens/RepoSearch';
 import { RepoContext } from './RepoContext';
 
@@ -18,14 +18,14 @@ const Header = () => {
             alt: 'Fork',
             name: 'Fork',
             count: repoSearchData?.stargazers_count,
-            symbol: '▼',
+            symbol: <CaretDownOutlined style={{ fontSize: '16px' }} />,
         },
         {
             url: '/assets/star.svg',
             alt: 'Star',
             name: 'Star',
             count: repoSearchData?.forks_count,
-            symbol: '▼',
+            symbol: <CaretDownOutlined style={{ fontSize: '16px' }} />,
         }
     ]
     return (
@@ -52,8 +52,19 @@ const Header = () => {
             <div className='repoName_div'>
 
                 <div className='repoName'>
-                    <Image className='avatar_img' loader={imageLoader} src={repoSearchData ? repoSearchData?.owner?.avatar_url : '/assets/save.png'} alt='avatar' width={24} height={24} />
-                    <p className='fullName'>{repoSearchData ? repoSearchData?.full_name : 'user/repo'}</p>
+                    <Image className='avatar_img' loader={imageLoader}
+                        src={repoSearchData ? repoSearchData?.owner?.avatar_url : '/assets/save.png'}
+                        alt='avatar' width={24} height={24}
+                    />
+                    <p className='fullName'>{
+                        repoSearchData ? (
+                            <div>
+                                <span>{repoSearchData?.owner?.login} </span>
+                                <span style={{ color: '#8B949E' }}>/</span>
+                                <span> {repoSearchData?.name}</span>
+                            </div>
+                        ) : (<span>user/repo</span>)
+                    }</p>
                     <p className='public'>Public</p>
                 </div>
 
