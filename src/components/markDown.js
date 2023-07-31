@@ -8,6 +8,7 @@ const GitHubReadme = () => {
   const [readmeContent, setReadmeContent] = useState("");
 
   useEffect(() => {
+    const fullRepoName = "freifunk-berlin/firmware";
     const fetch = async () => {
       const readmeData = await fetchReadme(fullRepoName);
       setReadmeContent(readmeData);
@@ -18,10 +19,10 @@ const GitHubReadme = () => {
 
   return (
     <section className="readMeSection">
-
       {readmeContent && (
         <div>
           <div className="readMeHead">
+            2
             <div className="innerReadMD">
               <Image src="/assets/List.svg" width={16} height={16} alt="List" />
               <div className="readMeHeading">README.md </div>

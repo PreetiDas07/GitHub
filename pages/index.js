@@ -1,6 +1,5 @@
-import GitHubReadme from "@/src/components/markDown";
-import MarkDown from "@/src/components/markDown";
 import React from "react";
+import GitHubReadme from "@/src/components/markDown";
 
 export default function index() {
   return (

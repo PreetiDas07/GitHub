@@ -14,7 +14,7 @@
 .readMeHead {
   display: flex;
   height: 49px;
-  padding: 8px 766.063px 9px 8px;
+  padding: 8px 0px 9px 8px;
   align-items: center;
   border-radius: 6px 6px 0px 0px;
   border-bottom: 1px solid #30363d;
@@ -63,6 +63,7 @@
 .readmeContent p {
   margin-bottom: 16px;
   margin-top: 16px;
+  font-size: 15px;
 }
 
 .readmeContent li {
@@ -76,28 +77,22 @@
   border-radius: 6px;
 }
 
+@media (max-width: 1090px) {
+  .readmeContent pre {
+    overflow-x: scroll;
+  }
+}
+
 .readmeContent ul {
   margin: 0px 0px 16px;
   padding-left: 32px;
 }
 
-.readmeContent h2 {
+.readmeContent h1,
+h2 {
   border-bottom: 1px solid #21262d;
   padding-bottom: 7.188px;
   margin-bottom: 16px;
-}
-
-.readmeContent h1 {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid #21262d;
-  padding-bottom: 7.188px;
-  margin-bottom: 16px;
-}
-
-.readmeContent h1 {
-  display: flex;
 }
 
 .readmeContent h3,
@@ -108,4 +103,10 @@ h4 {
 .readmeContent hr {
   margin: 24px 0px;
   color: #30363d;
+}
+
+blockquote {
+  color: #7d8590;
+  padding: 0px 16px;
+  border-left: 4px solid #616161;
 }
