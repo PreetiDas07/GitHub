@@ -39,12 +39,10 @@ const Header = () => {
                 </div>
 
                 <div className='avatar_div' >
-                    <Badge dot color='blue' size="default">
-                        <Avatar
-                            className='avatar'
-                            icon={<UserOutlined className='userOutlined' />}
-                        />
-                    </Badge>
+                    <Avatar
+                        className='avatar'
+                        icon={<UserOutlined className='userOutlined' />}
+                    />
                 </div>
 
             </div>
@@ -56,15 +54,21 @@ const Header = () => {
                         src={repoSearchData ? repoSearchData?.owner?.avatar_url : '/assets/save.png'}
                         alt='avatar' width={24} height={24}
                     />
-                    <p className='fullName'>{
+                    <h3 className='fullName'>{
                         repoSearchData ? (
                             <div>
                                 <span>{repoSearchData?.owner?.login} </span>
                                 <span style={{ color: '#8B949E' }}>/</span>
                                 <span> {repoSearchData?.name}</span>
                             </div>
-                        ) : (<span>user/repo</span>)
-                    }</p>
+                        ) : (
+                            <div>
+                                <span>User </span>
+                                <span style={{ color: '#8B949E' }}>/</span>
+                                <span> Repo</span>
+                            </div>
+                        )
+                    }</h3>
                     <p className='public'>Public</p>
                 </div>
 
