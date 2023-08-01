@@ -16,8 +16,6 @@ const fetchReadme = async (fullRepoName) => {
 
     const decodedContent = decodeBase64(data.content);
 
-    console.log(decodedContent);
-
     return decodedContent;
   } catch (error) {
     console.error("Error fetching README:", error);

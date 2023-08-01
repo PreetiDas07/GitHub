@@ -22,7 +22,7 @@ const GitHubReadme = () => {
       {readmeContent && (
         <div>
           <div className="readMeHead">
-            2
+            
             <div className="innerReadMD">
               <Image src="/assets/List.svg" width={16} height={16} alt="List" />
               <div className="readMeHeading">README.md </div>
