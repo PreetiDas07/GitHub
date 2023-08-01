@@ -6,5 +6,5 @@ export default function index() {
     <main>
       <GitHubReadme />
     </main>
-  );
+);
 }
