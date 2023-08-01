@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
-import { Avatar, Badge, Tag } from 'antd';
-import Image from 'next/image';
-import { UserOutlined, GithubOutlined, CaretDownOutlined } from '@ant-design/icons';
 import RepoSearch from '../screens/RepoSearch';
 import { RepoContext } from './RepoContext';
-
-
+import Image from 'next/image';
+import Link from 'next/link';
+import { UserOutlined, GithubOutlined, CaretDownOutlined } from '@ant-design/icons';
+import { Avatar } from 'antd';
 
 const Header = () => {
     const { repoSearchData } = useContext(RepoContext);
@@ -28,20 +27,33 @@ const Header = () => {
             symbol: <CaretDownOutlined style={{ fontSize: '16px' }} />,
         }
     ]
+
+    const formatCount = (count) => {
+        if (count >= 1000) {
+            return `${(count / 1000).toFixed(1)}k`;
+        } else {
+            return count.toString();
+        }
+    };
+
     return (
         <div>
 
             <div className='header'>
 
                 <div className='icon_input_div'>
-                    <GithubOutlined className='githuboutlined' />
+                    <Link href='/'>
+                        <GithubOutlined className='githuboutlined' />
+                    </Link>
                     <RepoSearch />
                 </div>
 
                 <div className='avatar_div' >
                     <Avatar
                         className='avatar'
-                        icon={<UserOutlined className='userOutlined' />}
+                        icon={
+                            <UserOutlined className='userOutlined' />
+                        }
                     />
                 </div>
 
@@ -50,10 +62,14 @@ const Header = () => {
             <div className='repoName_div'>
 
                 <div className='repoName'>
-                    <Image className='avatar_img' loader={imageLoader}
+                    <Image
+                        className='avatar_img'
+                        loader={imageLoader}
                         src={repoSearchData ? repoSearchData?.owner?.avatar_url : '/assets/save.png'}
-                        alt='avatar' width={24} height={24}
-                    />
+                        alt='avatar'
+                        width={24}
+                        height={24} />
+
                     <h3 className='fullName'>{
                         repoSearchData ? (
                             <div>
@@ -78,9 +94,13 @@ const Header = () => {
                             <div className='fork' key={index}>
 
                                 <div className='fork_div'>
-                                    <Image src={forkAndStar.url} alt={forkAndStar.alt} width={16} height={16} />
+                                    <Image src={forkAndStar.url}
+                                        alt={forkAndStar.alt}
+                                        width={16} height={16} />
                                     <p>{forkAndStar.name}</p>
-                                    <p className='count'>{forkAndStar.count ? forkAndStar.count : '0'}</p>
+                                    <p className='count'>
+                                        {forkAndStar.count ? formatCount(forkAndStar.count) : '0'}
+                                    </p>
                                 </div>
 
                                 <div className='symbol'>
