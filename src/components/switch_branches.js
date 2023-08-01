@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react'
-import Image from 'next/image';
+import React, {  useContext } from 'react'
 import { GitContext } from '@/pages/context';
 import { useRouter } from "next/router";
 import { MasterIcon } from './branch_utilis';
 
 const SwitchBranches = () => {
-    const { branchNames } = useContext(GitContext)
+    const { branchData } = useContext(GitContext)
     const router = useRouter();
     const handleSwitchBranch = () => {
         router.push("/branches_page")
@@ -14,7 +13,7 @@ const SwitchBranches = () => {
         <div className='switch-branches' onClick={handleSwitchBranch}>
             <MasterIcon/>
             <span className='branch-length'>
-                {branchNames.length}
+                {branchData.length}
             </span>
             <span className='branch-name'>
                 branches

@@ -1,22 +1,26 @@
-
- const sortBranches = (branchNames) => {
-  return branchNames.sort((a, b) => {
-    if (a === 'master') return -1;
-    if (b === 'master') return 1;
-    return a.localeCompare(b);
-  });
-};
- const handleSelectedBranch = (item, branchSelected,tagSelected, setSelectedBranchName, setButtonClicked, setSearchQuery, setSelectedTagName) => {
+ const handleSelectedBranch = (item, branchSelected, setBranchSha, setSelectedBranchName, branchData,setSelectedTagName,setSearchQuery,setButtonClicked) => {
   if (branchSelected) {
     setSelectedBranchName(item);
+    const selectedBranchDetails = branchData?.find((branch) => branch?.name === item);
+    const selectedBranchSha = selectedBranchDetails ? selectedBranchDetails?.commit.sha : '';
+    if (!selectedBranchSha && item === 'master') {
+      setBranchSha();
+    } else {
+      (selectedBranchSha);
+    }
     setButtonClicked(false);
-    setSearchQuery("");
-  } else if(tagSelected){
-    setSelectedTagName(item);
-    setButtonClicked(false);
-    setSearchQuery("");
-  }
+    setSearchQuery('');
+  } 
 };
+
+const sortedBranches = (branchData) => {
+  return (branchData ?? []).sort((a, b) => {
+    if (a.name === 'master') return -1;
+    if (b.name === 'master') return 1;
+    return a.name.localeCompare(b.name);
+  });
+};
+
  const FolderIcon = ({ width = 16, height = 16 }) => {
   return (
     <img
@@ -27,6 +31,7 @@
     />
   );
 };
+
  const MasterIcon = ({ width = 16, height = 16 }) => {
   return (
     <img
@@ -47,5 +52,5 @@
     return 0;
   });
 }
-export {sortBranches,handleSelectedBranch,FolderIcon,MasterIcon,sortFilesAndFolders}
+export {sortedBranches,handleSelectedBranch,FolderIcon,MasterIcon,sortFilesAndFolders}
 

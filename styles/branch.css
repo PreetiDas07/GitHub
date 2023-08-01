@@ -1,30 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Noto+Sans+Mono:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url('https://fonts.cdnfonts.com/css/menlo');
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Noto+Sans+Mono:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Menlo&display=swap");
 
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-
 }
-body{
 
+body {
     font-family: Noto Sans;
 }
+
 .branch-selection-main-div {
     position: relative;
     background-color: black;
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
-    /* margin-top: 152px; */
 }
 
 .branch-select {
     display: flex;
     padding: 6px 17px;
     justify-content: center;
-    /* align-items: center; */
     gap: 7.859px;
     color: #C9D1D9;
     border-radius: 6px;
@@ -35,13 +30,13 @@ body{
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
+    cursor: pointer;
 }
 
 .branch-button-clicked {
     display: flex;
     padding: 6px 17px;
     justify-content: center;
-    /* align-items: center; */
     gap: 7.859px;
     color: #C9D1D9;
     border-radius: 6px;
@@ -52,6 +47,7 @@ body{
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
+    cursor: pointer;
 }
 
 .select-option-icon {
@@ -60,16 +56,11 @@ body{
     height: 10px;
 }
 
-
-
 .branch-header {
     background-color: black;
-    margin-top: 33px;
-    padding-top: 24px;
+    padding: 24px 0px 16px 0px;
     gap: 16px;
     display: flex;
-    /* justify-content: center; */
-    /* align-items: center; */
 }
 
 .sub-header {
@@ -84,7 +75,6 @@ body{
 }
 
 .branch-length {
-
     color: #C9D1D9;
     font-family: Noto Sans;
     font-size: 13px;
@@ -134,13 +124,6 @@ body{
     animation-name: SelectMenu-modal-animation--sm;
 }
 
-/* .switch-branches-tags{
-   
-    font-size: 14px;
-    color:white;
-    font-size: 14px;
-    font-weight: var(--base-text-weight-semibold, 600);
-} */
 .select-header {
     padding: 7px 7px 7px 16px;
     display: flex;
@@ -183,13 +166,11 @@ body{
     padding: 4px 16px;
     font-size: 12px;
     color: #E6EDF3;
-    /* border-top: 1px solid rgba(240, 246, 252, 0.10);
-    border-left: 1px solid rgba(240, 246, 252, 0.10);
-    border-right: 1px solid rgba(240, 246, 252, 0.10); */
     border: 1px solid rgba(240, 246, 252, 0.10);
     border-bottom-width: 0;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
+    cursor: pointer;
 }
 
 .branch-selected {
@@ -199,12 +180,14 @@ body{
     border-bottom-width: 0;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
+    cursor: pointer;
 }
 
 .tags {
     padding: 4px 16px;
     font-size: 12px;
     color: #8B949E;
+    cursor: pointer;
 }
 
 .tag-selected {
@@ -215,30 +198,30 @@ body{
     border-bottom-width: 0;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
-
+    cursor: pointer;
 }
 
 .branch-names {
     padding: 7px 16px;
     font-size: 12px;
     display: flex;
+    align-items: center;
     border-bottom: 1px solid rgba(240, 246, 252, 0.10);
     color: #E6EDF3;
+    cursor: pointer;
 }
 
 .no-data {
     padding: 7px 0px;
     font-size: 12px;
-    /* display: flex; */
     border-bottom: 1px solid rgba(240, 246, 252, 0.10);
     color: #E6EDF3;
     text-align: center;
 }
 
 .default {
-
-    margin-left: 175px;
     padding: 1px 7px;
+    margin-left: 159px;
     font-size: 12px;
     border: 1px solid rgba(240, 246, 252, 0.10);
     border-radius: 100px;
@@ -249,6 +232,7 @@ body{
     padding: 7px 16px;
     color: #2F81F7;
     text-align: center;
+    cursor: auto;
 }
 
 .filtered-items {
@@ -266,22 +250,22 @@ body{
 }
 
 .branch-title {
-    margin-top: 16px;
     padding: 17px;
     border-radius: 6px 6px 0px 0px;
     border: 1px solid #30363D;
     background: #161B22;
     display: flex;
-    gap: 421.48px;
-    /* width:fit-content */
+    justify-content: space-between;
 }
 
 .shaNoCommit {
     display: flex;
+    align-items: center;
 }
 
 .profileCommmit {
     display: flex;
+    align-items: center;
 }
 
 .profile {
@@ -310,13 +294,11 @@ body{
 }
 
 .sha-no {
-    /* margin-left: 421.84px; */
     color: #8B949E;
-    /* font-family: Menlo;
+    font-family: "Menlo", monospace;
     font-size: 10px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 18px; */
+    display: flex;
+    align-items: center;
 }
 
 .clock {
@@ -325,6 +307,7 @@ body{
 
 .commits-count {
     display: flex;
+    justify-content: flex-end;
     margin-left: 3.84px;
     color: #C9D1D9;
     font-family: Noto Sans;
@@ -343,8 +326,11 @@ body{
 
 .contents-component {
     background-color: black;
+    border-radius: 6px;
+    padding-bottom: 17px;
 }
-.component-button-clicked{
+
+.component-button-clicked {
     background-color: black;
 }
 
@@ -359,12 +345,11 @@ body{
 }
 
 .branch-item {
-    border-top: 1px solid #21262D;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #161B22;
     color: #C9D1D9;
     display: flex;
-    /* justify-content: flex-start; */
-    /* align-items: center;
-    justify-content: center; */
     padding: 9px 132px 8px 16px;
 }
 
@@ -374,10 +359,10 @@ body{
 
 .branchContents {
     display: flex;
-    /* width: fit-content; */
-    /* align-items: center; */
     justify-content: center;
     flex-direction: column;
+    border: 1px solid rgba(240, 246, 252, 0.10);
+    border-radius: 0px 6px;
 }
 
 .commit-message {
@@ -388,22 +373,32 @@ body{
     font-style: normal;
     font-weight: 400;
     line-height: 21px;
+    text-decoration: none;
+    display: flex;
+}
+
+.commit-message:hover {
+    text-decoration: underline;
+    color: #2F81F7;
+    font-family: Noto Sans;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 21px;
+    text-decoration: underline;
 }
 
 .content-div {
     display: flex;
-    /* padding-left: 132px; */
-    /* padding-right: 16px; */
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
     gap: 16px;
-    /* border-top: 1px solid #21262D; */
     color: #C9D1D9;
     font-family: Noto Sans;
     font-size: 13px;
     font-style: normal;
     font-weight: 400;
     line-height: 21px;
-
 }
 
 .content-name {
@@ -418,20 +413,11 @@ body{
 }
 
 .content-name:hover {
-    width: 130.11px;
     color: #2F81F7;
-    font-family: Noto Sans;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 21px;
     text-decoration: underline;
 }
 
 .commit-msg {
-    display: flex;
-    /* align-items: center; */
-    /* justify-content: center; */
     margin: 16px 0px;
     padding: 16px;
     font-size: 14px;
@@ -441,22 +427,26 @@ body{
     border-radius: 6px;
 
 }
-.commit-link{
+
+.commit-link {
     padding-left: 5px;
-    color:#2F81F7;
+    color: #2F81F7;
     text-decoration: none;
 }
-.commit-link:hover{
-    color:#2F81F7;
+
+.commit-link:hover {
+    color: #2F81F7;
     text-decoration: underline;
 }
-.commit-link2{
-    padding:0px 5px;
-    color:#2F81F7;
+
+.commit-link2 {
+    padding: 0px 5px;
+    color: #2F81F7;
     text-decoration: none;
 }
-.commit-link2:hover{
-    color:#2F81F7;
+
+.commit-link2:hover {
+    color: #2F81F7;
     text-decoration: underline;
 }
 
@@ -464,12 +454,24 @@ body{
     display: none;
 }
 
-
-
 .commit {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.switch-branches-tags {
+    color: #E6EDF3;
+    font-size: 12px;
+}
+
+.close-icon {
+    color: #7D8590;
+    font-size: 12px;
+}
+
+.close-icon:hover {
+    color: #E6EDF3;
 }
 
 
@@ -519,34 +521,27 @@ body{
         font-weight: 500;
         line-height: 20px;
     }
+
+    .content-name {
+        width: 70px;
+        color: #C9D1D9;
+        font-family: Noto Sans;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 21px;
+        text-decoration: none;
+    }
 }
 
 @media screen and (max-width: 535px) {
 
 
-    /* .component-button-clicked {
-        z-index: -1;
-        opacity: 0.3;
-        filter: blur(7px);
-    }
-    .filter-input {
-        padding: 5px 12px;
-        border: 1px solid rgba(240, 246, 252, 0.10);
-        background: #21262D;
-        border-radius: 6px;
-    } */
-    
-
-    /* .blur {
-        filter: blur(4px);
-        opacity: 0.5px;
-    } */
 
     .select-options {
         position: absolute;
         position: fixed;
         width: 95%;
-        /* top:300px; */
         height: auto;
         max-height: 480px;
         margin: 8px 0 16px 0;
@@ -565,12 +560,9 @@ body{
     .select-options-out-div {
         display: flex;
         justify-content: center;
-        /* z-index: 1; */
-
     }
 
     .default {
-
         position: absolute;
         right: 5%;
         padding: 1px 7px;
@@ -587,41 +579,16 @@ body{
         border-bottom: 1px solid rgba(240, 246, 252, 0.10);
     }
 
-    /* .branches {
-        padding: 8px 16px;
-        font-size: 12px;
-        color: #E6EDF3;
-        border: 1px solid rgba(240, 246, 252, 0.10);
-        border-bottom-width: 0;
-        border-top-left-radius: 6px;
-        border-top-right-radius: 6px;
+    .commit-message {
+        display: none;
     }
-    
-    .branch-selected {
-        padding: 8px 16px;
-        font-size: 12px;
-        color: #8B949E;
-        border-bottom-width: 0;
-        border-top-left-radius: 6px;
-        border-top-right-radius: 6px;
+
+    .content-div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-    
-    .tags {
-        padding: 8px 16px;
-        font-size: 12px;
-        color: #8B949E;
-    }
-    
-    .tag-selected {
-        padding: 8px 16px;
-        font-size: 12px;
-        color: #E6EDF3;
-        border: 1px solid rgba(240, 246, 252, 0.10);
-        border-bottom-width: 0;
-        border-top-left-radius: 6px;
-        border-top-right-radius: 6px;
-    
-    } */
+
     .branch-names {
         padding: 16px;
         font-size: 12px;
@@ -669,7 +636,6 @@ body{
         border-bottom-width: 0;
         border-top-left-radius: 6px;
         border-top-right-radius: 6px;
-        /* width: 300px; */
     }
 
     .commit-data {
@@ -757,7 +723,6 @@ body{
         border-bottom-width: 0;
         border-top-left-radius: 6px;
         border-top-right-radius: 6px;
-        /* width: 300px; */
     }
 
     .commit-data {
@@ -775,7 +740,6 @@ body{
     }
 
     .content-name {
-        width: 100px;
         color: #C9D1D9;
         font-family: Noto Sans;
         font-size: 13px;
@@ -786,13 +750,7 @@ body{
     }
 
     .commit-message {
-        margin-left: 50px;
-        color: #8B949E;
-        font-family: Noto Sans;
-        font-size: 13px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 21px;
+        display: none;
     }
 
     .commit-msg {
@@ -804,7 +762,6 @@ body{
         color: #E6EDF3;
         padding: 17px 30px 17px 17px;
         border-radius: 6px;
-
     }
 
     .branch-select {

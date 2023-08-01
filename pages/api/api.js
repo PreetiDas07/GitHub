@@ -1,29 +1,90 @@
 import axios from "axios";
 
-export const fetchBranchesDetails = async (fullName) => {
+export const fetchBranchesDetails = async (fullName, accessToken) => {
   try {
+    const headers = {
+      Authorization: `token ${accessToken}`
+    }
     const response = await axios.get(
-      `https://api.github.com/repos/${fullName}/branches`
+      `https://api.github.com/repos/${fullName}/branches`, {
+      headers
+    }
     );
-    console.log(response);
-    return response.data; 
+    return response.data;
   } catch (error) {
     console.error("Error fetching directory data:", error);
-    return []; 
+    return [];
   }
 };
 
-const fetchDirectoryData = async (fullName, branchSha) => {
+export const fetchTagsData = async (fullName, accessToken) => {
   try {
+    const headers = {
+      Authorization: `token ${accessToken}`
+    }
     const response = await axios.get(
-      `https://api.github.com/repos/${fullName}/git/trees/${branchSha}`
+      `https://api.github.com/repos/${fullName}/tags`, {
+      headers
+    }
     );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching directory data:", error);
+    return [];
+  }
+};
 
+
+export const fetchCommits = async (fullName, selectedBranchName, perPage = 100) => {
+  try {
+    const allCommits = [];
+    let page = 1;
+
+    while (true) {
+      const response = await axios.get(
+        `https://api.github.com/repos/${fullName}/commits`,
+        {
+          params: {
+            sha: selectedBranchName,
+            page,
+            per_page: perPage,
+          },
+        }
+      );
+
+      const commitsData = response.data;
+      if (commitsData.length === 0) {
+        break;
+      }
+
+      allCommits.push(...commitsData);
+      page++;
+    }
+
+    return allCommits;
+  } catch (error) {
+    console.error("Error fetching directory data:", error);
+    return [];
+  }
+};
+
+
+
+const fetchDirectoryData = async (fullName, directorySha, accessToken) => {
+  try {
+    const headers = {
+      Authorization: `token ${accessToken}`
+    }
+    const response = await axios.get(
+      `https://api.github.com/repos/${fullName}/git/trees/${directorySha}`, {
+      headers
+    }
+    );
+    console.log("inside try")
     const paths = response.data.tree.map((item) => ({
       name: item.path,
       type: item.type,
     }));
-
     return paths;
   } catch (error) {
     console.error("Error fetching directory data:", error);
@@ -31,31 +92,45 @@ const fetchDirectoryData = async (fullName, branchSha) => {
   }
 };
 
-const fetchBranchData = async (fullName, branchName, branchSha) => {
+const fetchBranchData = async (fullName, selectedBranchName, branchSha, accessToken) => {
+
+  console.log(selectedBranchName, "branch name")
   try {
+    const headers = {
+      Authorization: `token ${accessToken}`
+    }
     const response = await axios.get(
-      `https://api.github.com/repos/${fullName}/contents?ref=${branchName}`
+      `https://api.github.com/repos/${fullName}/contents?ref=${selectedBranchName}`, {
+      headers
+    }
     );
 
     const branches = await Promise.all(
       response.data.map(async (branch) => {
         const commitResponse = await axios.get(
-          `https://api.github.com/repos/${fullName}/commits?path=${branch.path}&sha=${branchSha}`
+          `https://api.github.com/repos/${fullName}/commits?path=${branch.path}&sha=${branchSha}`, {
+          headers
+        }
         );
+        const commitMessage = commitResponse.data[0]?.commit.message || "No commit message";
+        const truncatedMessage = truncateMessage(commitMessage, 100);
         return {
           name: branch.name,
           type: branch.type,
-          message: commitResponse.data[0]?.commit.message || "No commit message",
+          message: truncatedMessage,
           sha: branch.sha,
         };
       })
     );
-
     return branches;
   } catch (error) {
     console.error("Error fetching branches data:", error);
     return [];
   }
+};
+
+const truncateMessage = (message, maxLength) => {
+  return message.length > maxLength ? message.substring(0, maxLength) : message;
 };
 
 export { fetchDirectoryData, fetchBranchData };

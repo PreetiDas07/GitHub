@@ -1,55 +1,28 @@
 import React, { useEffect, useState, useContext } from 'react';
-import axios from 'axios';
 import { GitContext } from '@/pages/context';
-// import { TiTick } from 'react-icons/ti';
-// import Image from "next/image";
-
+import { fetchCommits } from '@/pages/api/api';
 const BranchTitle = () => {
+  const { selectedBranchName } = useContext(GitContext);
   const [branchHeaderData, setBranchHeaderData] = useState({
     firstCommitMessage: "",
     profileName: "",
     avatar: "",
     shaFirstFiveDigits: "",
-    commitCount: 0  
+    commitCount: 0,
   });
-  const {selectedBranchName} = useContext(GitContext);
 
   useEffect(() => {
-    const fetchCommits = async () => {
+    const fetchData = async () => {
       try {
-        const allCommits = [];
-        let page = 1;
-        const perPage = 100;
-
-        while (true) {
-          const response = await axios.get(
-            `https://api.github.com/repos/urwid/urwid/commits`,
-            {
-              params: {
-                sha: selectedBranchName,
-                page,
-                per_page: perPage,
-              },
-            }
-          );
-
-          const commitsData = response.data;
-          if (commitsData.length === 0) {
-            break;
-          }
-
-          allCommits.push(...commitsData);
-          page++;
-        }
-
+        const allCommits = await fetchCommits("urwid/urwid", selectedBranchName);
         const commitCount = allCommits.length;
         setBranchHeaderData((prevData) => ({
           ...prevData,
           commitCount,
         }));
-        
         if (allCommits.length > 0) {
           const firstCommitMessage = allCommits[0].commit.message;
+          const truncatedMessage = truncateMessage(firstCommitMessage, 100);
           const authorName = allCommits[0].commit.author.name;
           const wordsArray = authorName.split(' ');
           const profileName = wordsArray[1];
@@ -59,7 +32,7 @@ const BranchTitle = () => {
 
           setBranchHeaderData((prevData) => ({
             ...prevData,
-            firstCommitMessage,
+            truncatedMessage,
             profileName,
             avatar,
             shaFirstFiveDigits,
@@ -70,8 +43,12 @@ const BranchTitle = () => {
       }
     };
 
-    fetchCommits();
+    fetchData();
   }, [selectedBranchName]);
+
+  const truncateMessage = (message, maxLength) => {
+    return message.length > maxLength ? message.substring(0, maxLength) : message;
+  }; 
 
   return (
     <div className='branch-title'>
@@ -92,7 +69,6 @@ const BranchTitle = () => {
     </div>
     <div className='shaNoCommit'>
         <div className='sha-no'>{branchHeaderData.shaFirstFiveDigits} </div>
-        {/* <div><TiTick size={16} /></div> */}
         <img
             src="/assets/clock.png"
             alt="clock"
