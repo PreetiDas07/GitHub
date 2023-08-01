@@ -9,8 +9,9 @@ const GitHubReadme = () => {
 
   useEffect(() => {
     const fullRepoName = "freifunk-berlin/firmware";
+    const accessToken = "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";
     const fetch = async () => {
-      const readmeData = await fetchReadme(fullRepoName);
+      const readmeData = await fetchReadme(fullRepoName, accessToken);
       setReadmeContent(readmeData);
     };
 
@@ -22,7 +23,6 @@ const GitHubReadme = () => {
       {readmeContent && (
         <div>
           <div className="readMeHead">
-            
             <div className="innerReadMD">
               <Image src="/assets/List.svg" width={16} height={16} alt="List" />
               <div className="readMeHeading">README.md </div>

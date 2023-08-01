@@ -1,7 +1,13 @@
-const fetchReadme = async (fullRepoName) => {
+const fetchReadme = async (fullRepoName, accessToken) => {
   try {
+    const headers = {
+      Authorization: `token ${accessToken}`,
+    };
     const response = await fetch(
-      `https://api.github.com/repos/${fullRepoName}/readme`
+      `https://api.github.com/repos/${fullRepoName}/readme`,
+      {
+        headers,
+      }
     );
 
     if (!response.ok) {
@@ -39,12 +45,13 @@ import axios from "axios";
 export const fetchBranchesDetails = async (fullName, accessToken) => {
   try {
     const headers = {
-      Authorization: `token ${accessToken}`
-    }
+      Authorization: `token ${accessToken}`,
+    };
     const response = await axios.get(
-      `https://api.github.com/repos/${fullName}/branches`, {
-      headers
-    }
+      `https://api.github.com/repos/${fullName}/branches`,
+      {
+        headers,
+      }
     );
     return response.data;
   } catch (error) {
@@ -56,12 +63,13 @@ export const fetchBranchesDetails = async (fullName, accessToken) => {
 export const fetchTagsData = async (fullName, accessToken) => {
   try {
     const headers = {
-      Authorization: `token ${accessToken}`
-    }
+      Authorization: `token ${accessToken}`,
+    };
     const response = await axios.get(
-      `https://api.github.com/repos/${fullName}/tags`, {
-      headers
-    }
+      `https://api.github.com/repos/${fullName}/tags`,
+      {
+        headers,
+      }
     );
     return response.data;
   } catch (error) {
@@ -70,9 +78,16 @@ export const fetchTagsData = async (fullName, accessToken) => {
   }
 };
 
-
-export const fetchCommits = async (fullName, selectedBranchName, perPage = 100) => {
+export const fetchCommits = async (
+  fullName,
+  selectedBranchName,
+  accessToken,
+  perPage = 100
+) => {
   try {
+    const headers = {
+      Authorization: `token ${accessToken}`,
+    };
     const allCommits = [];
     let page = 1;
 
@@ -85,6 +100,7 @@ export const fetchCommits = async (fullName, selectedBranchName, perPage = 100) 
             page,
             per_page: perPage,
           },
+          headers,
         }
       );
 
@@ -107,14 +123,14 @@ export const fetchCommits = async (fullName, selectedBranchName, perPage = 100) 
 const fetchDirectoryData = async (fullName, directorySha, accessToken) => {
   try {
     const headers = {
-      Authorization: `token ${accessToken}`
-    }
+      Authorization: `token ${accessToken}`,
+    };
     const response = await axios.get(
-      `https://api.github.com/repos/${fullName}/git/trees/${directorySha}`, {
-      headers
-    }
+      `https://api.github.com/repos/${fullName}/git/trees/${directorySha}`,
+      {
+        headers,
+      }
     );
-    console.log("inside try")
     const paths = response.data.tree.map((item) => ({
       name: item.path,
       type: item.type,
@@ -126,27 +142,33 @@ const fetchDirectoryData = async (fullName, directorySha, accessToken) => {
   }
 };
 
-const fetchBranchData = async (fullName, selectedBranchName, branchSha, accessToken) => {
-
-  console.log(selectedBranchName, "branch name")
+const fetchBranchData = async (
+  fullName,
+  selectedBranchName,
+  branchSha,
+  accessToken
+) => {
   try {
     const headers = {
-      Authorization: `token ${accessToken}`
-    }
+      Authorization: `token ${accessToken}`,
+    };
     const response = await axios.get(
-      `https://api.github.com/repos/${fullName}/contents?ref=${selectedBranchName}`, {
-      headers
-    }
+      `https://api.github.com/repos/${fullName}/contents?ref=${selectedBranchName}`,
+      {
+        headers,
+      }
     );
 
     const branches = await Promise.all(
       response.data.map(async (branch) => {
         const commitResponse = await axios.get(
-          `https://api.github.com/repos/${fullName}/commits?path=${branch.path}&sha=${branchSha}`, {
-          headers
-        }
+          `https://api.github.com/repos/${fullName}/commits?path=${branch.path}&sha=${branchSha}`,
+          {
+            headers,
+          }
         );
-        const commitMessage = commitResponse.data[0]?.commit.message || "No commit message";
+        const commitMessage =
+          commitResponse.data[0]?.commit.message || "No commit message";
         const truncatedMessage = truncateMessage(commitMessage, 100);
         return {
           name: branch.name,

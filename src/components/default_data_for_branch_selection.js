@@ -1,18 +1,40 @@
-import React, { useContext } from 'react';
-import BranchOrTagSwitchComponent from './branch_tag_switch';
-import { GitContext } from '@/pages/context';
-import { fetchBranchData } from '@/pages/api/api';
-import { sortedBranches,handleSelectedBranch } from './branch_utilis';
+import React, { useContext } from "react";
+import BranchOrTagSwitchComponent from "./branch_tag_switch";
+import { GitContext } from "@/pages/context";
+import { fetchBranchData } from "@/pages/api/api";
+import { sortedBranches, handleSelectedBranch } from "./branch_utilis";
 
 const DefaultBranchesData = () => {
   const {
-    branchData,branchSha,setBranchSha,searchQuery,branchSelected,selectedBranchName,selectedItem,
-    setSelectedBranchName,setSelectedTagName,setSearchQuery,setButtonClicked,} = useContext(GitContext);
+    branchData,
+    branchSha,
+    setBranchSha,
+    searchQuery,
+    branchSelected,
+    selectedBranchName,
+    selectedItem,
+    setSelectedBranchName,
+    setSelectedTagName,
+    setSearchQuery,
+    setButtonClicked,
+    viewAll
+  } = useContext(GitContext);
 
-  const fullName = "urwid/urwid";
-  const sortedBranchNames = sortedBranches(branchData); 
+  const fullName = "freifunk-berlin/firmware";
+  const sortedBranchNames = sortedBranches(branchData);
+  let displayedItems = viewAll ? sortedBranchNames : sortedBranchNames.slice(0, 10);
+
   const handleBranchSelection = (item) => {
-    handleSelectedBranch(item, branchSelected, setBranchSha, setSelectedBranchName, branchData,setSelectedTagName,setSearchQuery,setButtonClicked); 
+    handleSelectedBranch(
+      item,
+      branchSelected,
+      setBranchSha,
+      setSelectedBranchName,
+      branchData,
+      setSelectedTagName,
+      setSearchQuery,
+      setButtonClicked
+    );
     fetchBranchData(fullName, selectedBranchName, branchSha);
   };
 
@@ -20,13 +42,13 @@ const DefaultBranchesData = () => {
     <div>
       {selectedItem?.length <= 0 && !searchQuery && (
         <div>
-          {sortedBranchNames?.map((branch, index) => {
-            const isMasterBranch = branch === 'master';
+          {displayedItems?.map((branch, index) => {
+            const isMasterBranch = branch === "master";
             return (
               <BranchOrTagSwitchComponent
                 key={index}
                 handleBranchSelection={handleBranchSelection}
-                branch={branch} 
+                branch={branch}
                 index={index}
                 isMasterBranch={isMasterBranch}
                 selectedBranchName={selectedBranchName}

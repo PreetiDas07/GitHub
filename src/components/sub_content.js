@@ -7,8 +7,8 @@ import { fetchDirectoryData } from '@/pages/api/api';
 
 const SubContent = () => {
     const { directoryData, setDirectoryData, directorySha, branchSha,setSubContentClicked } = useContext(GitContext);
-    let fullName = "urwid/urwid";
-    let accessToken = "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";
+    let fullName = "freifunk-berlin/firmware";
+    let accessToken = "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";
     const [selectedBranchContents, setSelectedBranchContents] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
@@ -32,7 +32,7 @@ const SubContent = () => {
                 <div>Last Commit Message</div>
             </div>
             <div className='sub-contents-div' onClick={handleBack}>
-                <Link href="/branches" className='sub-contents'>
+                <Link href="/" className='sub-contents'>
                     <div className='folder-data'>
                         <FolderIcon width={16} height={16} />
                         <div  className='folder-name' >...</div>
