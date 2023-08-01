@@ -14,10 +14,6 @@ export default function TopNav() {
     setActiveIndex(activeRouteIndex);
   }, [router.pathname]);
 
-  const handleUnderLine = (index) => {
-    setActiveIndex(index);
-  };
-
   return (
     <section className="topNavSection">
       <div className="topNav_section">
@@ -26,7 +22,10 @@ export default function TopNav() {
             <div
               className="code"
               key={index}
-              onClick={() => handleUnderLine(index)}
+              style={{
+                borderBottom:
+                  activeIndex === index ? "2px solid #F78166" : "none",
+              }}
             >
               <Link href={data.href} className="headingCode">
                 <Image src={data.image} width={16} height={16} alt={data.alt} />
@@ -36,10 +35,6 @@ export default function TopNav() {
               </Link>
               <div
                 className="rectangle"
-                style={{
-                  borderBottom:
-                    activeIndex === index ? "2px solid #F78166" : "none",
-                }}
               ></div>
             </div>
           );
