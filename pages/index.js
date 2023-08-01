@@ -1,12 +1,17 @@
 import React from "react";
+import RepoProvider from "@/src/components/RepoContext";
+import RepoSearch from "@/src/screens/RepoSearch";
 import GitHubReadme from "@/src/components/markDown";
 import Branches from "./branches";
 
-export default function index() {
+export default function Index() {
   return (
-    <main>
-      <Branches />
+    <main className="main">
+      <RepoProvider>
+        <RepoSearch />
+    <Branches />
       <GitHubReadme />
+      </RepoProvider>
     </main>
   );
 }

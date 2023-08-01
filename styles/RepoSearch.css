@@ -1,0 +1,36 @@
+.repoSearchInput {
+    width: 90%;
+    padding: 4px 5px 4px 13px;
+    background: #0D1117;
+    color: #FFF;
+    height: 20px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+}
+
+form {
+    width: 272px;
+    height: 28px;
+    border: 1px solid #30363D;
+    background: #0D1117;
+    border-radius: 6px;
+    display: flex;
+    padding: 4px 5px 4px 13px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.slash {
+    height: 20px;
+    width: 18px;
+    border: 1px solid #30363D;
+    color: white;
+    text-align: center;
+    padding: 1px 5px 1px 5px;
+    border-radius: 4px;
+}
