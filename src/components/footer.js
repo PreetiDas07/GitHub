@@ -55,7 +55,7 @@ const Footer = () => {
         <footer className='footer'>
             <div className='footer_div'>
                 <div className='github_log_div'>
-                    <Link href='/' style={{ color: '#6E7681', textDecoration: 'none' }}>
+                    <Link href='/' className='home_icon' >
                         <GithubOutlined className='githubOutlined' />
                     </Link>
                     <p className='github_inc'>© 2023 GitHub, Inc.</p>
