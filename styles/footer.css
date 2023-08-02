@@ -13,7 +13,7 @@
 }
 
 .footer_div {
-    display: inline-flex;
+    display: flex;
     padding: 41px 208px 8px 0px;
     align-items: center;
     gap: 71.281px;
@@ -45,6 +45,7 @@
 
 .footerLinks {
     display: flex;
+    flex-wrap: wrap;
     padding: 1px 0px;
     justify-content: center;
     align-items: flex-start;
@@ -68,4 +69,71 @@
 .home_icon {
     color: #6E7681;
     text-decoration: none;
+}
+
+
+@media screen and (min-width: 250px) and (max-width: 500px) {
+
+    .footer_div {
+        display: flex;
+        flex-direction: column-reverse;
+        padding: 20px 0px 0px 0px;
+        align-items: center;
+        gap: 15px;
+        flex-shrink: 0;
+        border-top: none;
+    }
+
+    .footerLinks {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        flex-wrap: wrap;
+        padding: 1px 0px;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .github_log_div {
+        display: flex;
+        padding-bottom: 0px;
+        gap: 8px;
+    }
+
+    .github_inc {
+        color: #8B949E;
+        font-family: Noto Sans;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 18px;
+        white-space: nowrap;
+    }
+
+    .footer {
+        background: #000000;
+        padding-left: 0px;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        padding-right: 0px;
+    }
+
+}
+
+@media screen and (min-width: 500px) and (max-width: 1000px) {
+    .footerLinks {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .footer_div {
+        display: flex;
+        padding: 40px 0px 0px 0px;
+        align-items: center;
+        gap: 30px;
+        flex-shrink: 0;
+        border-top: 1px solid #21262D;
+    }
 }
