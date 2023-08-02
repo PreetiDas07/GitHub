@@ -16,14 +16,14 @@ const Header = () => {
             url: '/assets/fork.svg',
             alt: 'Fork',
             name: 'Fork',
-            count: repoSearchData?.stargazers_count,
+            count: repoSearchData?.forks_count,
             symbol: <CaretDownOutlined style={{ fontSize: '16px' }} />,
         },
         {
             url: '/assets/star.svg',
             alt: 'Star',
             name: 'Star',
-            count: repoSearchData?.forks_count,
+            count: repoSearchData?.stargazers_count,
             symbol: <CaretDownOutlined style={{ fontSize: '16px' }} />,
         }
     ]
