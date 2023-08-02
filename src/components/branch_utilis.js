@@ -52,5 +52,8 @@ const sortedBranches = (branchData) => {
     return 0;
   });
 }
-export {sortedBranches,handleSelectedBranch,FolderIcon,MasterIcon,sortFilesAndFolders}
+
+const accessToken="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";
+
+export {sortedBranches,handleSelectedBranch,FolderIcon,MasterIcon,sortFilesAndFolders, accessToken}
 

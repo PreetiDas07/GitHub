@@ -4,11 +4,13 @@ import { FileOutlined } from '@ant-design/icons';
 import { FolderIcon } from './branch_utilis';
 import Link from 'next/link';
 import { fetchDirectoryData } from '@/pages/api/api';
+import { accessToken } from "./branch_utilis";
+
 
 const SubContent = () => {
     const { directoryData, setDirectoryData, directorySha, branchSha,setSubContentClicked } = useContext(GitContext);
     let fullName = "freifunk-berlin/firmware";
-    let accessToken = "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";
+   
     const [selectedBranchContents, setSelectedBranchContents] = useState([]);
     useEffect(() => {
         const fetchData = async () => {

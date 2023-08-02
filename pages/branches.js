@@ -13,7 +13,8 @@ const Branches = () => {
           <TagsHeader />
         </div>
       </div>
-      <BranchContents />
+     
+
     </div>
   );
 };

@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import BranchOrTagSwitchComponent from "./branch_tag_switch";
 import { GitContext } from "@/pages/context";
 import { fetchBranchData } from "@/pages/api/api";
-import { handleSelectedBranch } from "./branch_utilis";
+import { accessToken, handleSelectedBranch } from "./branch_utilis";
+
 const SelectedItemData = () => {
   const {
     selectedTagName,
@@ -37,7 +38,7 @@ const SelectedItemData = () => {
       fullName,
       selectedBranchName,
       branchSha,
-      "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"
+      accessToken
     );
   };
   let displayedItems = viewAll ? selectedItem : selectedItem.slice(0, 10);

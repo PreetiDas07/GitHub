@@ -3,6 +3,8 @@ import BranchOrTagSwitchComponent from "./branch_tag_switch";
 import { GitContext } from "@/pages/context";
 import { fetchBranchData } from "@/pages/api/api";
 import { sortedBranches, handleSelectedBranch } from "./branch_utilis";
+import { accessToken } from "./branch_utilis";
+
 
 const DefaultBranchesData = () => {
   const {
@@ -21,6 +23,7 @@ const DefaultBranchesData = () => {
   } = useContext(GitContext);
 
   const fullName = "freifunk-berlin/firmware";
+
   const sortedBranchNames = sortedBranches(branchData);
   let displayedItems = viewAll ? sortedBranchNames : sortedBranchNames.slice(0, 10);
 
@@ -33,9 +36,10 @@ const DefaultBranchesData = () => {
       branchData,
       setSelectedTagName,
       setSearchQuery,
-      setButtonClicked
+      setButtonClicked,
+      accessToken
     );
-    fetchBranchData(fullName, selectedBranchName, branchSha);
+    fetchBranchData(fullName, selectedBranchName, branchSha, accessToken);
   };
 
   return (

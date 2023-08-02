@@ -1,55 +1,77 @@
-import axios from 'axios';
+import axios from "axios";
 
-export const fetchLatestReleaseData = async () => {
-    try {
-        const response = await axios.get('https://api.github.com/repos/acheong08/EdgeGPT/releases');
-        if (response.data.length > 0) {
-            return {
-                releaseCount: response.data.length,
-                latestRelease: response.data[0],
-            };
-        } else {
-            return {
-                releaseCount: 0,
-                latestRelease: null,
-            };
-        }
-    } catch (error) {
-        console.error('Error fetching repositories', error);
-        return {
-            releaseCount: -1,
-            latestRelease: null,
-        };
+const fetchLatestReleaseData = async (fullName, accessToken) => {
+  try {
+    const headers = {
+      Authorization: `token ${accessToken}`,
+    };
+    const response = await axios.get(
+      `https://api.github.com/repos/${fullName}/releases`,
+      {
+        headers,
+      }
+    );
+    if (response.data.length > 0) {
+      return {
+        releaseCount: response.data.length,
+        latestRelease: response.data[0],
+      };
+    } else {
+      return {
+        releaseCount: 0,
+        latestRelease: null,
+      };
     }
+  } catch (error) {
+    console.error("Error fetching repositories", error);
+    return {
+      releaseCount: -1,
+      latestRelease: null,
+    };
+  }
 };
 
-
-export const fetchContributors = async () => {
-    try {
-        const response = await axios.get('https://api.github.com/repos/acheong08/EdgeGPT/contributors');
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching contributors:', error);
-        return [];
-    }
+const fetchContributors = async (fullName, accessToken) => {
+  try {
+    const headers = {
+      Authorization: `token ${accessToken}`,
+    };
+    const response = await axios.get(
+      "    https://api.github.com/repos/freifunk-berlin/firmware/contributors",
+      {
+        headers,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching contributors:", error);
+    return [];
+  }
 };
 
-
-export const fetchProgressData = async () => {
-    try {
-        const response = await fetch('https://api.github.com/repos/acheong08/EdgeGPT/languages');
-        const data = await response.json();
-        const totalSize = Object.values(data).reduce((acc, val) => acc + val, 0);
-        const progress = Object.keys(data).map((language, index) => ({
-            language,
-            percentage: (data[language] / totalSize) * 100,
-            color: index === 0 ? '#3572A5' : index === 1 ? '#89E051' : '#FFC107',
-        }));
-        return progress;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        return [];
-    }
+const fetchProgressData = async (fullName, accessToken) => {
+  try {
+    const headers = {
+      Authorization: `token ${accessToken}`,
+    };
+    const response = await axios.get(
+      `https://api.github.com/repos/${fullName}/languages`,
+      {
+        headers,
+      }
+    );
+    const data = await response.json();
+    const totalSize = Object.values(data).reduce((acc, val) => acc + val, 0);
+    const progress = Object.keys(data).map((language, index) => ({
+      language,
+      percentage: (data[language] / totalSize) * 100,
+      color: index === 0 ? "#3572A5" : index === 1 ? "#89E051" : "#FFC107",
+    }));
+    return progress;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
 };
 
 const fetchReadme = async (fullRepoName, accessToken) => {
@@ -92,11 +114,11 @@ const decodeBase64 = (input) => {
     return null;
   }
 };
-export { fetchReadme };
+{
+  fetchReadme;
+}
 
-import axios from "axios";
-
-export const fetchBranchesDetails = async (fullName, accessToken) => {
+const fetchBranchesDetails = async (fullName, accessToken) => {
   try {
     const headers = {
       Authorization: `token ${accessToken}`,
@@ -114,7 +136,7 @@ export const fetchBranchesDetails = async (fullName, accessToken) => {
   }
 };
 
-export const fetchTagsData = async (fullName, accessToken) => {
+const fetchTagsData = async (fullName, accessToken) => {
   try {
     const headers = {
       Authorization: `token ${accessToken}`,
@@ -132,7 +154,7 @@ export const fetchTagsData = async (fullName, accessToken) => {
   }
 };
 
-export const fetchCommits = async (
+const fetchCommits = async (
   fullName,
   selectedBranchName,
   accessToken,
@@ -223,7 +245,7 @@ const fetchBranchData = async (
         );
         const commitMessage =
           commitResponse.data[0]?.commit.message || "No commit message";
-        const truncatedMessage = truncateMessage(commitMessage, 100);
+        const truncatedMessage = truncateMessage(commitMessage, 70);
         return {
           name: branch.name,
           type: branch.type,
@@ -243,4 +265,14 @@ const truncateMessage = (message, maxLength) => {
   return message.length > maxLength ? message.substring(0, maxLength) : message;
 };
 
-export { fetchDirectoryData, fetchBranchData };
+export {
+  fetchDirectoryData,
+  fetchBranchData,
+  fetchCommits,
+  fetchTagsData,
+  fetchBranchesDetails,
+  fetchReadme,
+  fetchProgressData,
+  fetchContributors,
+  fetchLatestReleaseData,
+};

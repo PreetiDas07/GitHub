@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { GitContext } from "@/pages/context";
 import { fetchCommits } from "@/pages/api/api";
+import { accessToken } from "./branch_utilis";
 const BranchTitle = () => {
   const { selectedBranchName } = useContext(GitContext);
   const [branchHeaderData, setBranchHeaderData] = useState({
@@ -15,8 +16,6 @@ const BranchTitle = () => {
     const fetchData = async () => {
       try {
         const fullRepoName = "freifunk-berlin/firmware";
-        const accessToken = "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";
-
         const allCommits = await fetchCommits(
           fullRepoName,
           selectedBranchName,

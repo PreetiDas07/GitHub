@@ -3,6 +3,8 @@ import BranchOrTagSwitchComponent from "./branch_tag_switch";
 import { GitContext } from "@/pages/context";
 import { sortedBranches, handleSelectedBranch } from "./branch_utilis";
 import { fetchBranchData } from "@/pages/api/api";
+import { accessToken } from "./branch_utilis";
+
 const FilteredItems = () => {
   const {
     branchSha,
@@ -36,7 +38,7 @@ const FilteredItems = () => {
       fullName,
       selectedBranchName,
       branchSha,
-      "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"
+     accessToken
     );
   };
 

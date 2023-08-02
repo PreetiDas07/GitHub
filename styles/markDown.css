@@ -6,13 +6,14 @@
   box-sizing: border-box;
 }
 
-body{
+body {
   background-color: #0d1117;
 }
 
 .readMeSection {
   border-radius: 6px;
   border: 1px solid #30363d;
+  width: 100%;
 }
 
 .readMeHead {
@@ -22,7 +23,7 @@ body{
   align-items: center;
   border-radius: 6px 6px 0px 0px;
   border-bottom: 1px solid #30363d;
-  background: #0D1117;
+  background: #0d1117;
 }
 
 .innerReadMD {
@@ -46,13 +47,11 @@ body{
   padding: 16px 32px 33px 32px;
   border-radius: 0px 0px 6px 6px;
   border-bottom: 1px solid #30363d;
-  background: #0D1117;
+  background: #0d1117;
   font-family: Noto Sans;
-}
-
-.readmeContent {
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 24px;
+  width: 100%;
 }
 
 .readmeContent a {
@@ -79,12 +78,6 @@ body{
   padding: 16px;
   background: #161b22;
   border-radius: 6px;
-}
-
-@media (max-width: 1090px) {
-  .readmeContent pre {
-    overflow-x: scroll;
-  }
 }
 
 .readmeContent ul {

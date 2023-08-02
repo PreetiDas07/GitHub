@@ -5,6 +5,7 @@ import Search from "./search";
 import FilteredItems from "./filtered_items";
 import DefaultBranchesData from "./default_data_for_branch_selection";
 import SelectedItemData from "./selected_item_data";
+import { accessToken } from "./branch_utilis";
 import {
   fetchBranchData,
   fetchBranchesDetails,
@@ -38,7 +39,6 @@ const BranchSelection = () => {
   const [itemSelected, setItemSelected] = useState(false);
   const [validName, setValidName] = useState(false);
   let fullName = "freifunk-berlin/firmware";
-  let accessToken = "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";
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -55,7 +55,6 @@ const BranchSelection = () => {
             ? masterBranchDetails.commit.sha
             : "";
           setBranchSha(masterBranchSha);
-          fetchTagsData(fullName, "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");
         } else {
           console.error("Unexpected API response:", branchDetails);
         }
@@ -67,7 +66,7 @@ const BranchSelection = () => {
   }, [branchSha]);
 
   useEffect(() => {
-    fetchTagsData(fullName, "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")
+    fetchTagsData(fullName, accessToken)
       .then((tags) => {
         setTags(tags.map((tag) => tag.name));
       })
