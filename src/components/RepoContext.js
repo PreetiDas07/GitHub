@@ -7,7 +7,6 @@ const RepoProvider = ({ children }) => {
   const [repositories, setRepositories] = useState([]);
   const repoSearchData = repositories[0];
 
-  
 
   return (
     <RepoContext.Provider value={{ searchTerm, setSearchTerm, repositories, setRepositories, repoSearchData }}>

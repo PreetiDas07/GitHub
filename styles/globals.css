@@ -1,3 +1,71 @@
 @import "./topNav.css";
 @import './header.css';
 @import "./RepoSearch.css";
+@import "./About.css";
+@import "./markDown.css";
+@import "./branch.css";
+@import "./subContent.css";
+
+.main {
+  padding: 0px 100px;
+}
+
+.inner-code {
+  width: 300px;
+}
+
+.about {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .inner-code {
+    width: 500px;
+  }
+  .readmeContent pre {
+    overflow-x: scroll;
+  }
+  .about {
+    display: none;
+  }
+}
+@media (min-width: 768px) {
+  .inner-code {
+    width: 700px;
+  }
+  .about {
+    display: none;
+  }
+  .readmeContent pre {
+    overflow-x: scroll;
+  }
+}
+@media (min-width: 1024px) {
+  .inner-code {
+    width: 700px;
+  }
+  .readmeContent pre {
+    overflow-x: scroll;
+  }
+  .about {
+    display: flex;
+  }
+  .main {
+    padding: 0px 100px;
+  }
+}
+
+@media (min-width: 1300px) {
+  .inner-code {
+    width: 896px;
+  }
+  .readmeContent pre {
+    overflow-x: scroll;
+  }
+  .about {
+    display: flex;
+  }
+  .main {
+    padding: 0px 150px;
+  }
+}
