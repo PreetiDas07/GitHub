@@ -10,8 +10,8 @@ import About from "@/src/components/About";
 import BranchHeader from "./branchHeader";
 import BranchContents from "@/src/components/branch_contents";
 
-
 export default function Index() {
+  console.log("merge test");
   return (
     <div>
       {" "}
@@ -33,7 +33,7 @@ export default function Index() {
           </div>
         </div>
       </div>
- <Footer />
+      <Footer />
     </div>
   );
 }
