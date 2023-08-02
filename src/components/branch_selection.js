@@ -39,9 +39,10 @@ const BranchSelection = () => {
     repositories,
     setSelectedBranchName,
   } = useContext(GitContext);
+
   const [itemSelected, setItemSelected] = useState(false);
   const [validName, setValidName] = useState(false);
-  // let searchTerm = "freifunk-berlin/firmware";
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -49,9 +50,7 @@ const BranchSelection = () => {
           searchTerm,
           accessToken
         );
-        if (searchTerm !== "") {
-          setValidName(true);
-        }
+
         if (Array.isArray(branchDetails)) {
           setBranchData(branchDetails);
           setSelectedBranchName(
@@ -79,7 +78,7 @@ const BranchSelection = () => {
   useEffect(() => {
     fetchTagsData(searchTerm, accessToken)
       .then((tags) => {
-        setTags(tags?.map((tag) => tag.name)) || setTags("no tags");
+        setTags(tags?.map((tag) => tag.name));
       })
       .catch((error) => {
         console.error("Error fetching tags:", error);
@@ -89,7 +88,6 @@ const BranchSelection = () => {
 
   useEffect(() => {
     const fetchBranchDataa = async () => {
-      // let searchTerm = "freifunk-berlin/firmware";
       const branches = await fetchBranchData(
         searchTerm,
         selectedBranchName,
@@ -114,10 +112,9 @@ const BranchSelection = () => {
     setButtonClicked(false);
     setViewAll(false);
   };
-
   return (
     <div className="branch-selection-main-div">
-      {!itemSelected && searchTerm && (
+      {!itemSelected && (
         <div>
           <Search
             buttonClicked={buttonClicked}

@@ -4,7 +4,6 @@ import { GitContext } from "@/pages/context";
 import { sortedBranches, handleSelectedBranch } from "./branch_utilis";
 import { fetchBranchData } from "@/pages/api/api";
 import { accessToken } from "./branch_utilis";
-
 const FilteredItems = () => {
   const {
     branchSha,
@@ -19,9 +18,8 @@ const FilteredItems = () => {
     setSelectedTagName,
     setSearchQuery,
     setButtonClicked,
-    searchTerm,
   } = useContext(GitContext);
-  // let searchTerm = "urwid/urwid";
+  let fullName = "urwid/urwid";
   const sortedBranchNames = sortedBranches(branchData);
 
   const handleBranchSelection = async (item) => {
@@ -35,7 +33,7 @@ const FilteredItems = () => {
       setSearchQuery,
       setButtonClicked
     );
-    fetchBranchData(searchTerm, selectedBranchName, branchSha, accessToken);
+    fetchBranchData(fullName, selectedBranchName, branchSha, accessToken);
   };
 
   const filteredItems = branchSelected
@@ -52,25 +50,20 @@ const FilteredItems = () => {
     <div>
       {filteredItems && searchQuery && (
         <div>
-          {filteredItems ? (
-            filteredItems?.map((item, index) => (
-              <BranchOrTagSwitchComponent
-                key={index}
-                handleBranchSelection={handleBranchSelection}
-                branch={item}
-                index={index}
-                selectedBranchName={selectedBranchName}
-                selectedTagName={selectedTagName}
-                branchSelected={branchSelected}
-              />
-            ))
-          ) : (
-            <div>no tags available</div>
-          )}
+          {filteredItems?.map((item, index) => (
+            <BranchOrTagSwitchComponent
+              key={index}
+              handleBranchSelection={handleBranchSelection}
+              branch={item}
+              index={index}
+              selectedBranchName={selectedBranchName}
+              selectedTagName={selectedTagName}
+              branchSelected={branchSelected}
+            />
+          ))}
           {searchQuery && filteredItems?.length === 0 && (
             <div className="no-data">Nothing to show</div>
           )}
-          {!filteredItems && <div>no tags available</div>}
         </div>
       )}
     </div>

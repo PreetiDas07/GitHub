@@ -60,15 +60,13 @@ const fetchProgressData = async (fullName, accessToken) => {
         headers,
       }
     );
-    const data = await response.json();
+    const data = response.data;
     const totalSize = Object.values(data).reduce((acc, val) => acc + val, 0);
     const progress = Object.keys(data).map((language, index) => ({
       language,
       percentage: (data[language] / totalSize) * 100,
       color: index === 0 ? "#3572A5" : index === 1 ? "#89E051" : "#FFC107",
     }));
-    console.log(progress);
-    console.log("progress");
     return progress;
   } catch (error) {
     console.error("Error fetching data:", error);

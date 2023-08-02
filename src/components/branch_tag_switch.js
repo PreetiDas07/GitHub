@@ -33,7 +33,7 @@ const BranchOrTagSwitchComponent = ({
       </div>
 
       {branchSelected ? branch?.name : branch}
-      {(branch?.name === "master" || branch?.name === "main") && (
+      {((branch?.name === "master") || (branch?.name === "main")) && (
         <div className="default">default</div>
       )}
     </div>

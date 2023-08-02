@@ -66,7 +66,7 @@ const sortFilesAndFolders = (contents) => {
   });
 };
 
-const accessToken = "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";
+const accessToken = "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";
 
 export {
   sortedBranches,

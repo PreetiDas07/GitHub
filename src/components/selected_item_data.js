@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import BranchOrTagSwitchComponent from "./branch_tag_switch";
 import { GitContext } from "@/pages/context";
 import { fetchBranchData } from "@/pages/api/api";
-import { accessToken, handleSelectedBranch } from "./branch_utilis";
-
+import { handleSelectedBranch } from "./branch_utilis";
+import { accessToken } from "./branch_utilis";
 const SelectedItemData = () => {
   const {
     selectedTagName,
@@ -20,9 +20,7 @@ const SelectedItemData = () => {
     setButtonClicked,
     viewAll,
     selectedItem,
-    searchTerm,
   } = useContext(GitContext);
-  // let searchTerm = "freifunk-berlin/firmware";
 
   const handleBranchSelection = async (item) => {
     handleSelectedBranch(
@@ -35,7 +33,7 @@ const SelectedItemData = () => {
       setSearchQuery,
       setButtonClicked
     );
-    fetchBranchData(searchTerm, selectedBranchName, branchSha, accessToken);
+    fetchBranchData(fullName, selectedBranchName, branchSha, accessToken);
   };
   let displayedItems = viewAll ? selectedItem : selectedItem.slice(0, 10);
   return (
@@ -57,7 +55,6 @@ const SelectedItemData = () => {
             />
           );
         })}
-      {!displayedItems && <div>no tags available</div>}
     </div>
   );
 };

@@ -703,7 +703,7 @@ body {
   }
 
   .branch-header {
-    background-color: black;
+    /* background-color: black; */
     margin-top: 33px;
     padding-top: 24px;
     gap: 16px;

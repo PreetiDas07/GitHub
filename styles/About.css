@@ -248,17 +248,15 @@
 }
 
 .lang_names {
-  display: flex;
+  display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 19px;
   margin-top: 10px;
-  margin-left: 18px;
+  margin-left: 20px;
+  margin-bottom: 24.5px;
 }
 
 .lang_percentage {
   display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 5.64px;
   margin-top: 8px;
 }
@@ -288,4 +286,5 @@
   margin-top: 16px;
   border-radius: 6px;
   overflow: hidden;
+  width: 302.3px;
 }
