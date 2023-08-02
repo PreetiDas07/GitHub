@@ -25,7 +25,7 @@ const fetchLatestReleaseData = async (fullName, accessToken) => {
   } catch (error) {
     console.error("Error fetching repositories", error);
     return {
-      releaseCount: -1,
+      releaseCount: 0,
       latestRelease: null,
     };
   }
@@ -37,7 +37,7 @@ const fetchContributors = async (fullName, accessToken) => {
       Authorization: `token ${accessToken}`,
     };
     const response = await axios.get(
-      "    https://api.github.com/repos/freifunk-berlin/firmware/contributors",
+      `https://api.github.com/repos/${fullName}/contributors`,
       {
         headers,
       }
@@ -67,6 +67,8 @@ const fetchProgressData = async (fullName, accessToken) => {
       percentage: (data[language] / totalSize) * 100,
       color: index === 0 ? "#3572A5" : index === 1 ? "#89E051" : "#FFC107",
     }));
+    console.log(progress);
+    console.log("progress");
     return progress;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -129,11 +131,21 @@ const fetchBranchesDetails = async (fullName, accessToken) => {
         headers,
       }
     );
-    return response.data;
+
+    const truncatedData = response.data.map((branch) => ({
+      ...branch,
+      name: truncateString(branch.name, 30),
+    }));
+
+    return truncatedData;
   } catch (error) {
     console.error("Error fetching directory data:", error);
     return [];
   }
+};
+
+const truncateString = (str, maxLength) => {
+  return str.length > maxLength ? str.substring(0, maxLength) : str;
 };
 
 const fetchTagsData = async (fullName, accessToken) => {

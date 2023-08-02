@@ -11,21 +11,24 @@ import BranchContents from "@/src/components/branch_contents";
 
 export default function Index() {
   return (
-    <div className="main">
-     <RepoProvider>
+    <div>
+      {" "}
+      <RepoProvider>
         <Header />
         <TopNav />
       </RepoProvider>
-      <div style={{ display: "flex" }}>
-        <div className="inner-code">
-          <BranchHeader />
-          <BranchContents />
-          <GitHubReadme />
-        </div>
-        <div className="about">
-          <RepoProvider>
-            <About />
-          </RepoProvider>
+      <div className="main">
+        <div style={{ display: "flex" }}>
+          <div className="inner-code">
+            <BranchHeader />
+            <BranchContents />
+            <GitHubReadme />
+          </div>
+          <div className="about">
+            <RepoProvider>
+              <About />
+            </RepoProvider>
+          </div>
         </div>
       </div>
     </div>

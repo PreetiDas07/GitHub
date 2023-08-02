@@ -19,8 +19,9 @@ const FilteredItems = () => {
     setSelectedTagName,
     setSearchQuery,
     setButtonClicked,
+    searchTerm,
   } = useContext(GitContext);
-  let fullName = "urwid/urwid";
+  // let searchTerm = "urwid/urwid";
   const sortedBranchNames = sortedBranches(branchData);
 
   const handleBranchSelection = async (item) => {
@@ -34,40 +35,42 @@ const FilteredItems = () => {
       setSearchQuery,
       setButtonClicked
     );
-    fetchBranchData(
-      fullName,
-      selectedBranchName,
-      branchSha,
-     accessToken
-    );
+    fetchBranchData(searchTerm, selectedBranchName, branchSha, accessToken);
   };
 
   const filteredItems = branchSelected
     ? sortedBranches(branchData).filter((item) =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase())
       )
-    : tags.filter((item) =>
+    : Array.isArray(tags)
+    ? tags.filter((item) =>
         item.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+      )
+    : [];
 
   return (
     <div>
       {filteredItems && searchQuery && (
         <div>
-          {filteredItems?.map((item, index) => (
-            <BranchOrTagSwitchComponent
-              key={index}
-              handleBranchSelection={handleBranchSelection}
-              branch={item}
-              index={index}
-              selectedBranchName={selectedBranchName}
-              selectedTagName={selectedTagName}
-              branchSelected={branchSelected}
-            />
-          ))}
+          {filteredItems ? (
+            filteredItems?.map((item, index) => (
+              <BranchOrTagSwitchComponent
+                key={index}
+                handleBranchSelection={handleBranchSelection}
+                branch={item}
+                index={index}
+                selectedBranchName={selectedBranchName}
+                selectedTagName={selectedTagName}
+                branchSelected={branchSelected}
+              />
+            ))
+          ) : (
+            <div>no tags available</div>
+          )}
           {searchQuery && filteredItems?.length === 0 && (
             <div className="no-data">Nothing to show</div>
           )}
+          {!filteredItems && <div>no tags available</div>}
         </div>
       )}
     </div>

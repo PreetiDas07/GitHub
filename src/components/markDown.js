@@ -1,44 +1,50 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";
 import { fetchReadme } from "@/pages/api/api";
 import rehypeRaw from "rehype-raw";
 import { accessToken } from "./branch_utilis";
+import { GitContext } from "@/pages/context";
 
 const GitHubReadme = () => {
   const [readmeContent, setReadmeContent] = useState("");
-
+  const { searchTerm, repositories } = useContext(GitContext);
   useEffect(() => {
-    const fullRepoName = "freifunk-berlin/firmware";
-
     const fetch = async () => {
-      const readmeData = await fetchReadme(fullRepoName, accessToken);
+      const readmeData = await fetchReadme(searchTerm, accessToken);
       setReadmeContent(readmeData);
     };
 
     fetch();
-  }, []);
+  }, [repositories]);
 
   return (
-    <section className="readMeSection">
+    <div>
       {readmeContent && (
-        <div style={{ width: "100%" }}>
-          <div className="readMeHead">
-            <div className="innerReadMD">
-              <Image src="/assets/List.svg" width={16} height={16} alt="List" />
-              <div className="readMeHeading">README.md </div>
+        <section className="readMeSection">
+          <div style={{ width: "100%" }}>
+            <div className="readMeHead">
+              <div className="innerReadMD">
+                <Image
+                  src="/assets/List.svg"
+                  width={16}
+                  height={16}
+                  alt="List"
+                />
+                <div className="readMeHeading">README.md </div>
+              </div>
             </div>
-          </div>
 
-          <ReactMarkdown
-            children={readmeContent}
-            className="readmeContent"
-            rehypePlugins={[rehypeRaw]}
-            style={{ width: "100%" }}
-          ></ReactMarkdown>
-        </div>
+            <ReactMarkdown
+              children={readmeContent}
+              className="readmeContent"
+              rehypePlugins={[rehypeRaw]}
+              style={{ width: "100%" }}
+            ></ReactMarkdown>
+          </div>
+        </section>
       )}
-    </section>
+    </div>
   );
 };
 

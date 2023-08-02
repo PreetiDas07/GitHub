@@ -20,8 +20,9 @@ const SelectedItemData = () => {
     setButtonClicked,
     viewAll,
     selectedItem,
+    searchTerm,
   } = useContext(GitContext);
-  let fullName = "freifunk-berlin/firmware";
+  // let searchTerm = "freifunk-berlin/firmware";
 
   const handleBranchSelection = async (item) => {
     handleSelectedBranch(
@@ -34,12 +35,7 @@ const SelectedItemData = () => {
       setSearchQuery,
       setButtonClicked
     );
-    fetchBranchData(
-      fullName,
-      selectedBranchName,
-      branchSha,
-      accessToken
-    );
+    fetchBranchData(searchTerm, selectedBranchName, branchSha, accessToken);
   };
   let displayedItems = viewAll ? selectedItem : selectedItem.slice(0, 10);
   return (
@@ -61,6 +57,7 @@ const SelectedItemData = () => {
             />
           );
         })}
+      {!displayedItems && <div>no tags available</div>}
     </div>
   );
 };

@@ -35,21 +35,32 @@ const BranchSelection = () => {
     setViewAll,
     tagSelected,
     subContentClicked,
+    searchTerm,
+    repositories,
+    setSelectedBranchName,
   } = useContext(GitContext);
   const [itemSelected, setItemSelected] = useState(false);
   const [validName, setValidName] = useState(false);
-  let fullName = "freifunk-berlin/firmware";
+  // let searchTerm = "freifunk-berlin/firmware";
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const branchDetails = await fetchBranchesDetails(fullName, accessToken);
-        if (fullName !== "") {
+        const branchDetails = await fetchBranchesDetails(
+          searchTerm,
+          accessToken
+        );
+        if (searchTerm !== "") {
           setValidName(true);
         }
         if (Array.isArray(branchDetails)) {
           setBranchData(branchDetails);
+          setSelectedBranchName(
+            branchDetails.find((branch) => branch.name === "master")
+              ? "master"
+              : "main"
+          );
           const masterBranchDetails = branchData.find(
-            (branch) => branch.name === "master"
+            (branch) => branch.name === "master" || "main"
           );
           const masterBranchSha = masterBranchDetails
             ? masterBranchDetails.commit.sha
@@ -63,32 +74,33 @@ const BranchSelection = () => {
       }
     };
     fetchData();
-  }, [branchSha]);
+  }, [branchSha, repositories]);
 
   useEffect(() => {
-    fetchTagsData(fullName, accessToken)
+    fetchTagsData(searchTerm, accessToken)
       .then((tags) => {
-        setTags(tags.map((tag) => tag.name));
+        setTags(tags?.map((tag) => tag.name)) || setTags("no tags");
       })
       .catch((error) => {
         console.error("Error fetching tags:", error);
+        return [];
       });
-  }, []);
+  }, [repositories]);
 
   useEffect(() => {
     const fetchBranchDataa = async () => {
-      let fullName = "freifunk-berlin/firmware";
+      // let searchTerm = "freifunk-berlin/firmware";
       const branches = await fetchBranchData(
-        fullName,
+        searchTerm,
         selectedBranchName,
         branchSha,
         accessToken
       );
-
-      setBranchContents(branches);
+      console.log({ branches });
+      setBranchContents([...branches]);
     };
     fetchBranchDataa();
-  }, [branchSha, selectedBranchName]);
+  }, [branchSha, selectedBranchName, repositories]);
 
   const handleSelection = () => {
     setButtonClicked(!buttonClicked);
@@ -105,7 +117,7 @@ const BranchSelection = () => {
 
   return (
     <div className="branch-selection-main-div">
-      {!itemSelected && fullName && (
+      {!itemSelected && searchTerm && (
         <div>
           <Search
             buttonClicked={buttonClicked}
@@ -164,7 +176,11 @@ const BranchSelection = () => {
                 <SelectedItemData />
                 {!viewAll && (
                   <div className="view-more">
-                    {branchSelected ? "view all branches" : "view all tags"}
+                    {branchSelected
+                      ? "view all branches"
+                      : tags !== "no tags"
+                      ? "view all tags"
+                      : ""}
                   </div>
                 )}
                 {viewAll && <div>coming soon</div>}

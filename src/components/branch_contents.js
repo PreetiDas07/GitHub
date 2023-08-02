@@ -17,7 +17,7 @@ const BranchContents = () => {
   } = useContext(GitContext);
 
   const router = useRouter();
-  
+
   useEffect(() => {
     if (!selectedBranchName) {
       setSelectedBranchName("master");

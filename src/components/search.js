@@ -15,7 +15,9 @@ const Search = ({
     >
       <MasterIcon />
       <span>
-        {branchSelected ? selectedBranchName : selectedTagName || "master"}
+        {branchSelected
+          ? selectedBranchName
+          : selectedTagName || "master" || "main"}
       </span>
       <span>
         {" "}

@@ -2,7 +2,8 @@ import { Space, Tag } from "antd";
 import React, { useState, useEffect, useContext } from "react";
 import { ReadOutlined, StarOutlined, ForkOutlined } from "@ant-design/icons";
 import Image from "next/image";
-import { RepoContext } from "./RepoContext";
+// import { RepoContext } from "./RepoContext";
+import { GitContext } from "@/pages/context";
 import { accessToken } from "./branch_utilis";
 import {
   fetchContributors,
@@ -10,7 +11,7 @@ import {
   fetchProgressData,
 } from "@/pages/api/api";
 export default function About() {
-  const { searchTerm, repoSearchData } = useContext(RepoContext);
+  const { searchTerm, repoSearchData, repositories } = useContext(GitContext);
   const [contributors, setContributors] = useState([]);
   const [releaseData, setReleaseData] = useState({
     releaseCount: 0,
@@ -18,7 +19,6 @@ export default function About() {
   });
   const [progressData, setProgressData] = useState([]);
   const [loading, setLoading] = useState(true);
-  //   const searchTerm = "freifunk-berlin/firmware";
   useEffect(() => {
     fetchContributors(searchTerm, accessToken)
       .then((data) => {
@@ -37,6 +37,7 @@ export default function About() {
     fetchProgressData(searchTerm, accessToken)
       .then((data) => {
         setProgressData(data);
+        console.log("dfghjk");
         console.log(data);
       })
       .catch((error) => console.error("Error fetching data:", error));

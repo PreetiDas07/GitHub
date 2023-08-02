@@ -5,7 +5,6 @@ import { fetchBranchData } from "@/pages/api/api";
 import { sortedBranches, handleSelectedBranch } from "./branch_utilis";
 import { accessToken } from "./branch_utilis";
 
-
 const DefaultBranchesData = () => {
   const {
     branchData,
@@ -19,13 +18,14 @@ const DefaultBranchesData = () => {
     setSelectedTagName,
     setSearchQuery,
     setButtonClicked,
-    viewAll
+    viewAll,
+    searchTerm,
   } = useContext(GitContext);
 
-  const fullName = "freifunk-berlin/firmware";
-
   const sortedBranchNames = sortedBranches(branchData);
-  let displayedItems = viewAll ? sortedBranchNames : sortedBranchNames.slice(0, 10);
+  let displayedItems = viewAll
+    ? sortedBranchNames
+    : sortedBranchNames.slice(0, 10);
 
   const handleBranchSelection = (item) => {
     handleSelectedBranch(
@@ -39,27 +39,31 @@ const DefaultBranchesData = () => {
       setButtonClicked,
       accessToken
     );
-    fetchBranchData(fullName, selectedBranchName, branchSha, accessToken);
+    fetchBranchData(searchTerm, selectedBranchName, branchSha, accessToken);
   };
 
   return (
     <div>
       {selectedItem?.length <= 0 && !searchQuery && (
         <div>
-          {displayedItems?.map((branch, index) => {
-            const isMasterBranch = branch === "master";
-            return (
-              <BranchOrTagSwitchComponent
-                key={index}
-                handleBranchSelection={handleBranchSelection}
-                branch={branch}
-                index={index}
-                isMasterBranch={isMasterBranch}
-                selectedBranchName={selectedBranchName}
-                branchSelected={branchSelected}
-              />
-            );
-          })}
+          {displayedItems ? (
+            displayedItems?.map((branch, index) => {
+              const isMasterBranch = branch === "master";
+              return (
+                <BranchOrTagSwitchComponent
+                  key={index}
+                  handleBranchSelection={handleBranchSelection}
+                  branch={branch}
+                  index={index}
+                  isMasterBranch={isMasterBranch}
+                  selectedBranchName={selectedBranchName}
+                  branchSelected={branchSelected}
+                />
+              );
+            })
+          ) : (
+            <div>no tags available</div>
+          )}
         </div>
       )}
     </div>

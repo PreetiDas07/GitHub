@@ -62,6 +62,10 @@ body {
   display: flex;
 }
 
+.select-options-out-div {
+  display: flex;
+}
+
 .sub-header {
   display: flex;
   gap: 16px;
@@ -113,7 +117,6 @@ body {
   position: absolute;
   width: 300px;
   height: auto;
-  max-height: 480px;
   margin: 8px 0 16px 0;
   font-size: 12px;
   border: 1px solid rgba(240, 246, 252, 0.1);
@@ -330,6 +333,7 @@ body {
 
 .main-header {
   background-color: #0d1117;
+  padding: 0px 100px;
 }
 
 .folder-icon {
@@ -532,7 +536,6 @@ body {
     position: fixed;
     width: 95%;
     height: auto;
-    max-height: 480px;
     margin: 8px 0 16px 0;
     font-size: 12px;
     border: 1px solid rgba(240, 246, 252, 0.1);
@@ -549,6 +552,8 @@ body {
   .select-options-out-div {
     display: flex;
     justify-content: center;
+    height: fit-content;
+    overflow-y: scroll;
   }
 
   .default {
@@ -758,7 +763,7 @@ body {
     display: flex;
     padding: 6px 17px;
     justify-content: center;
-    width: fit-content;
+    /* width: fit-content; */
     gap: 7.859px;
     color: #c9d1d9;
     border-radius: 6px;

@@ -3,7 +3,8 @@ import { GitContext } from "@/pages/context";
 import { fetchCommits } from "@/pages/api/api";
 import { accessToken } from "./branch_utilis";
 const BranchTitle = () => {
-  const { selectedBranchName } = useContext(GitContext);
+  const { selectedBranchName, searchTerm, repositories } =
+    useContext(GitContext);
   const [branchHeaderData, setBranchHeaderData] = useState({
     firstCommitMessage: "",
     profileName: "",
@@ -15,9 +16,8 @@ const BranchTitle = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const fullRepoName = "freifunk-berlin/firmware";
         const allCommits = await fetchCommits(
-          fullRepoName,
+          searchTerm,
           selectedBranchName,
           accessToken
         );
@@ -31,7 +31,7 @@ const BranchTitle = () => {
           const truncatedMessage = truncateMessage(firstCommitMessage, 100);
           const authorName = allCommits[0].commit.author.name;
           const wordsArray = authorName.split(" ");
-          const profileName = wordsArray[1];
+          const profileName = wordsArray[1] ? wordsArray[1] : wordsArray;
           const avatar = allCommits[0].author.avatar_url;
           const sha = allCommits[0].sha;
           const shaFirstFiveDigits = sha.slice(0, 7);
@@ -50,7 +50,7 @@ const BranchTitle = () => {
     };
 
     fetchData();
-  }, [selectedBranchName]);
+  }, [selectedBranchName, repositories]);
 
   const truncateMessage = (message, maxLength) => {
     return message.length > maxLength

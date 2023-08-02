@@ -17,6 +17,9 @@ const Context = ({ children }) => {
   const [selectedItem, setSelectedItem] = useState(branchData);
   const [viewAll, setViewAll] = useState(false);
   const [directoryData, setDirectoryData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [repositories, setRepositories] = useState([]);
+  const repoSearchData = repositories[0];
 
   const contextValue = {
     selectedBranchName,
@@ -51,6 +54,11 @@ const Context = ({ children }) => {
     setViewAll,
     directoryData,
     setDirectoryData,
+    searchTerm,
+    setSearchTerm,
+    repositories,
+    setRepositories,
+    repoSearchData,
   };
   return (
     <div>
