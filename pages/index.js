@@ -1,3 +1,4 @@
+import Footer from "@/src/components/footer";
 import Header from "@/src/components/header";
 import React from "react";
 import TopNav from "@/src/components/topNav";
@@ -8,6 +9,7 @@ import Branches from "./branches";
 import About from "@/src/components/About";
 import BranchHeader from "./branchHeader";
 import BranchContents from "@/src/components/branch_contents";
+
 
 export default function Index() {
   return (
@@ -31,6 +33,7 @@ export default function Index() {
           </div>
         </div>
       </div>
+ <Footer />
     </div>
   );
 }
