@@ -20,6 +20,7 @@ const SelectedItemData = () => {
     setButtonClicked,
     viewAll,
     selectedItem,
+    searchTerm,
   } = useContext(GitContext);
 
   const handleBranchSelection = async (item) => {
@@ -33,7 +34,7 @@ const SelectedItemData = () => {
       setSearchQuery,
       setButtonClicked
     );
-    fetchBranchData(fullName, selectedBranchName, branchSha, accessToken);
+    fetchBranchData(searchTerm, selectedBranchName, branchSha, accessToken);
   };
   let displayedItems = viewAll ? selectedItem : selectedItem.slice(0, 10);
   return (

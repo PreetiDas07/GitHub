@@ -415,38 +415,6 @@ body {
   text-decoration: underline;
 }
 
-.commit-msg {
-  margin: 16px 0px;
-  padding: 16px;
-  font-size: 14px;
-  background-color: #161b22;
-  color: #e6edf3;
-  padding: 17px 0px 17px 17px;
-  border-radius: 6px;
-}
-
-.commit-link {
-  padding-left: 5px;
-  color: #2f81f7;
-  text-decoration: none;
-}
-
-.commit-link:hover {
-  color: #2f81f7;
-  text-decoration: underline;
-}
-
-.commit-link2 {
-  padding: 0px 5px;
-  color: #2f81f7;
-  text-decoration: none;
-}
-
-.commit-link2:hover {
-  color: #2f81f7;
-  text-decoration: underline;
-}
-
 .responsive-commit-data {
   display: none;
 }

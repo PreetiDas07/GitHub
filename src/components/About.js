@@ -37,8 +37,6 @@ export default function About() {
     fetchProgressData(searchTerm, accessToken)
       .then((data) => {
         setProgressData(data);
-        console.log("dfghjk");
-        console.log(data);
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, [repoSearchData]);
@@ -180,7 +178,7 @@ export default function About() {
                     >
                       <span className="lang_name_title">{language}</span>
                       <span className="lang_name_percent">{`${percentage.toFixed(
-                        2
+                        1
                       )}%`}</span>
                     </li>
                   </ul>

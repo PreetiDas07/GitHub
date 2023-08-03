@@ -27,11 +27,18 @@ const handleSelectedBranch = (
 };
 
 const sortedBranches = (branchData) => {
-  return (branchData ?? []).sort((a, b) => {
-    if (a.name === "master" || a.name === "main") return -1;
-    if (a.name === "master" || a.name === "main") return 1;
-    return a.name.localeCompare(b.name);
-  });
+  const branches = branchData ?? [];
+  const masterOrMainBranch = branches.find(
+    (branch) => branch.name === "master" || branch.name === "main"
+  );
+  const remainingBranches = branches.filter(
+    (branch) => branch.name !== "master" && branch.name !== "main"
+  );
+
+  return [
+    masterOrMainBranch,
+    ...remainingBranches.sort((a, b) => a.name.localeCompare(b.name)),
+  ].filter((branch) => branch);
 };
 
 const FolderIcon = ({ width = 16, height = 16 }) => {
@@ -66,7 +73,7 @@ const sortFilesAndFolders = (contents) => {
   });
 };
 
-const accessToken = "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";
+const accessToken = "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";
 
 export {
   sortedBranches,

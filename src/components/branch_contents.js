@@ -43,21 +43,6 @@ const BranchContents = () => {
         !buttonClicked ? "contents-component" : "component-button-clicked"
       }
     >
-      <div className="commit-header">
-        {selectedBranchName !== "master" && (
-          <div className="commit-msg">
-            This branch is
-            <Link href="" className="commit-link">
-              1 commit ahead,
-            </Link>
-            <Link href="" className="commit-link2">
-              {" "}
-              179 commits behind
-            </Link>{" "}
-            master.
-          </div>
-        )}
-      </div>
       <div className="title">
         <BranchTitle />
       </div>

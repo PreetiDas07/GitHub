@@ -18,8 +18,9 @@ const FilteredItems = () => {
     setSelectedTagName,
     setSearchQuery,
     setButtonClicked,
+    searchTerm,
+    viewAll,
   } = useContext(GitContext);
-  let fullName = "urwid/urwid";
   const sortedBranchNames = sortedBranches(branchData);
 
   const handleBranchSelection = async (item) => {
@@ -31,9 +32,10 @@ const FilteredItems = () => {
       branchData,
       setSelectedTagName,
       setSearchQuery,
-      setButtonClicked
+      setButtonClicked,
+      searchTerm
     );
-    fetchBranchData(fullName, selectedBranchName, branchSha, accessToken);
+    fetchBranchData(searchTerm, selectedBranchName, branchSha, accessToken);
   };
 
   const filteredItems = branchSelected
@@ -45,12 +47,16 @@ const FilteredItems = () => {
         item.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : [];
+  let filteredData = viewAll ? filteredItems : filteredItems.slice(0, 10);
 
   return (
     <div>
-      {filteredItems && searchQuery && (
+      {filteredData.length === 0 && searchQuery && (
+        <div className="no-data">Nothing to show</div>
+      )}
+      {filteredData && searchQuery && (
         <div>
-          {filteredItems?.map((item, index) => (
+          {filteredData?.map((item, index) => (
             <BranchOrTagSwitchComponent
               key={index}
               handleBranchSelection={handleBranchSelection}
@@ -61,9 +67,6 @@ const FilteredItems = () => {
               branchSelected={branchSelected}
             />
           ))}
-          {searchQuery && filteredItems?.length === 0 && (
-            <div className="no-data">Nothing to show</div>
-          )}
         </div>
       )}
     </div>

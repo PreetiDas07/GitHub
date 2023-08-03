@@ -1,6 +1,6 @@
-@import './footer.css';
+@import "./footer.css";
 @import "./topNav.css";
-@import './header.css';
+@import "./header.css";
 @import "./RepoSearch.css";
 @import "./About.css";
 @import "./markDown.css";
@@ -8,7 +8,7 @@
 @import "./subContent.css";
 
 .main {
-  padding: 0px 100px;
+  margin: 0px 100px;
 }
 
 .inner-code {
@@ -19,15 +19,15 @@
   display: none;
 }
 
-.noData{
+.noData {
   color: #cdcdcd;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin:220px;
+  margin: 220px;
 }
 
-@media (min-width: 250px) {
+@media (min-width: 250px) and (max-width: 639px) {
   .inner-code {
     width: 500px;
   }
@@ -38,25 +38,29 @@
     display: none;
   }
   .main {
-    padding: 0px 20px;
+    margin: 0px 20px;
   }
 }
 
-@media (min-width: 640px) {
+@media (min-width: 640px) and (max-width: 767px) {
   .inner-code {
-    width: 500px;
+    width: 750px;
   }
   .readmeContent pre {
     overflow-x: scroll;
   }
   .about {
     display: none;
+  }
+  .main {
+    margin: 0px 100px;
   }
 }
 @media (min-width: 768px) {
   .inner-code {
     width: 700px;
   }
+
   .about {
     display: none;
   }
@@ -65,12 +69,13 @@
   }
 
   .main {
-    padding: 0px 70px;
+    padding: 0px 50px;
   }
 }
+
 @media (min-width: 1024px) {
   .inner-code {
-    width: 700px;
+    width: 885px;
   }
   .readmeContent pre {
     overflow-x: scroll;
@@ -83,7 +88,7 @@
   }
 }
 
-@media (min-width: 1300px) {
+@media (min-width: 1024px) and (max-width: 1300px) {
   .inner-code {
     width: 896px;
   }
@@ -92,8 +97,5 @@
   }
   .about {
     display: flex;
-  }
-  .main {
-    padding: 0px 150px;
   }
 }

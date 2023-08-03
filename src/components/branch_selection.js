@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import { GitContext } from "@/pages/context";
 import Search from "./search";
@@ -39,10 +39,10 @@ const BranchSelection = () => {
     repositories,
     setSelectedBranchName,
   } = useContext(GitContext);
-
   const [itemSelected, setItemSelected] = useState(false);
   const [validName, setValidName] = useState(false);
-  
+  const selectOptionsRef = useRef(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -50,7 +50,9 @@ const BranchSelection = () => {
           searchTerm,
           accessToken
         );
-
+        if (searchTerm !== "") {
+          setValidName(true);
+        }
         if (Array.isArray(branchDetails)) {
           setBranchData(branchDetails);
           setSelectedBranchName(
@@ -66,14 +68,14 @@ const BranchSelection = () => {
             : "";
           setBranchSha(masterBranchSha);
         } else {
-          console.error("Unexpected API response:", branchDetails);
+          console.error("Unexpected API response:");
         }
       } catch (error) {
         console.error("Error fetching branch data:", error);
       }
     };
     fetchData();
-  }, [branchSha, repositories]);
+  }, [branchSha, searchTerm]);
 
   useEffect(() => {
     fetchTagsData(searchTerm, accessToken)
@@ -84,7 +86,7 @@ const BranchSelection = () => {
         console.error("Error fetching tags:", error);
         return [];
       });
-  }, [repositories]);
+  }, [searchTerm]);
 
   useEffect(() => {
     const fetchBranchDataa = async () => {
@@ -94,19 +96,33 @@ const BranchSelection = () => {
         branchSha,
         accessToken
       );
-      console.log({ branches });
       setBranchContents([...branches]);
     };
     fetchBranchDataa();
-  }, [branchSha, selectedBranchName, repositories]);
+  }, [branchSha, selectedBranchName, searchTerm]);
 
   const handleSelection = () => {
-    setButtonClicked(!buttonClicked);
+    setButtonClicked(true);
   };
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        selectOptionsRef.current &&
+        !selectOptionsRef.current.contains(event.target)
+      ) {
+        setButtonClicked(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleCloseSelection = () => {
     setButtonClicked(false);
@@ -114,7 +130,7 @@ const BranchSelection = () => {
   };
   return (
     <div className="branch-selection-main-div">
-      {!itemSelected && (
+      {!itemSelected && searchTerm && (
         <div>
           <Search
             buttonClicked={buttonClicked}
@@ -125,7 +141,7 @@ const BranchSelection = () => {
           />
           <div className="select-options-out-div">
             {buttonClicked && !subContentClicked && (
-              <div className="select-options">
+              <div className="select-options" ref={selectOptionsRef}>
                 <div className="select-header">
                   <div className="switch-branches-tags">
                     Switch branches/tags

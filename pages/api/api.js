@@ -130,20 +130,11 @@ const fetchBranchesDetails = async (fullName, accessToken) => {
       }
     );
 
-    const truncatedData = response.data.map((branch) => ({
-      ...branch,
-      name: truncateString(branch.name, 30),
-    }));
-
-    return truncatedData;
+    return response.data;
   } catch (error) {
     console.error("Error fetching directory data:", error);
     return [];
   }
-};
-
-const truncateString = (str, maxLength) => {
-  return str.length > maxLength ? str.substring(0, maxLength) : str;
 };
 
 const fetchTagsData = async (fullName, accessToken) => {
