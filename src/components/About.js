@@ -5,13 +5,14 @@ import Image from "next/image";
 // import { RepoContext } from "./RepoContext";
 import { GitContext } from "@/pages/context";
 import { accessToken } from "./branch_utilis";
+import {BsTag} from "react-icons/bs"
 import {
   fetchContributors,
   fetchLatestReleaseData,
   fetchProgressData,
 } from "@/pages/api/api";
 export default function About() {
-  const { searchTerm, repoSearchData, repositories } = useContext(GitContext);
+  const { searchTerm, repoSearchData, tags } = useContext(GitContext);
   const [contributors, setContributors] = useState([]);
   const [releaseData, setReleaseData] = useState({
     releaseCount: 0,
@@ -19,27 +20,44 @@ export default function About() {
   });
   const [progressData, setProgressData] = useState([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    fetchContributors(searchTerm, accessToken)
-      .then((data) => {
-        setContributors(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching contributors:", error);
-      })
-      .finally(() => {
+    const fetchReleaseData = async () => {
+      try {
+        const allReleases = await fetchLatestReleaseData(
+          searchTerm,
+          accessToken
+        );
+        setReleaseData(allReleases);
         setLoading(false);
-      });
-    fetchLatestReleaseData(searchTerm, accessToken).then((data) => {
-      setReleaseData(data);
-      setLoading(false);
-    });
+       
+      } catch (error) {
+        console.error("Error fetching directory data:", error);
+      }
+    };
+
+    fetchReleaseData();
+    const fetchContributorsData = async () => {
+      try {
+        const allContributors = await fetchContributors(
+          searchTerm,
+          accessToken
+        );
+        setContributors(allContributors);
+       
+      } catch (error) {
+        console.error("Error fetching directory data:", error);
+      }
+    };
+
+    fetchContributorsData();
     fetchProgressData(searchTerm, accessToken)
       .then((data) => {
         setProgressData(data);
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, [repoSearchData]);
+
   const aboutIconsData = [
     {
       icon: <ReadOutlined style={{ fontSize: "16px" }} />,
@@ -98,33 +116,40 @@ export default function About() {
             </div>
           </div>
           <div className="release">
-            <div className="release_title">
-              <span>Release</span>
-              <span className="releaseCount">{releaseData.releaseCount}</span>
-            </div>
-            <div className="release_tag">
-              <div className="release_icon_div">
-                <Image src="/Tag.svg" alt="" width={16} height={16} />
-                <span style={{ color: "#C9D1D9" }}>
-                  {loading
-                    ? "Loading..."
-                    : releaseData.latestRelease
-                    ? releaseData.latestRelease.tag_name
-                    : "No releases"}
-                </span>
-                <span className="release_latest">Latest</span>
-              </div>
-            </div>
-            {releaseData?.releaseCount ? (
-              <div className="releaseCount_data">
-                + {releaseData.releaseCount - 1} releases
-              </div>
-            ) : (
-              <div className="releaseCount_data">
-                + {releaseData.releaseCount} releases
-              </div>
-            )}
-          </div>
+                        <div className="release_title">
+                            <span>Releases</span>
+                            {releaseData.releaseCount ?
+                            <span className="releaseCount">{releaseData.releaseCount}</span>  : <span></span>}
+                        </div>
+                        <div className="release_tag">
+                            {releaseData.latestRelease ?
+                                <div className="release_icon_div">
+                                    <Image src="/Tag.svg" alt="" width={16} height={16} />
+                                    <span style={{ color: "#C9D1D9" }}>
+                                        {loading
+                                            ? "Loading..."
+                                            : releaseData.latestRelease
+                                                ? releaseData.latestRelease.tag_name
+                                                : `${tags.length} tags`}
+                                    </span>
+                                    <span className="release_latest">Latest</span>
+                                </div> :
+                                <div className="release_icon_div">
+                                    <BsTag size={16}/>
+                                    <span style={{ color: "#C9D1D9" }}>
+                                        {loading
+                                            ? "Loading..."
+                                            : `${tags.length} tags`}
+                                    </span>
+                                </div>}
+                        </div>
+                        {releaseData?.releaseCount ? (
+                            <div className="releaseCount_data">
+                                + {releaseData.releaseCount - 1} releases
+                            </div>
+                        ) : (<div> </div>
+                        )}
+                    </div>
           <div className="packages">
             <div className="package_title">Packages</div>
             <div className="package_text">No packages published</div>

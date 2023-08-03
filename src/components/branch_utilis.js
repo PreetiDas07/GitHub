@@ -41,6 +41,8 @@ const sortedBranches = (branchData) => {
   ].filter((branch) => branch);
 };
 
+
+
 const FolderIcon = ({ width = 16, height = 16 }) => {
   return (
     <img
@@ -73,7 +75,7 @@ const sortFilesAndFolders = (contents) => {
   });
 };
 
-const accessToken = "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";
+const accessToken = "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";
 
 export {
   sortedBranches,

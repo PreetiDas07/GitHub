@@ -21,7 +21,7 @@ const FilteredItems = () => {
     searchTerm,
     viewAll,
   } = useContext(GitContext);
-  const sortedBranchNames = sortedBranches(branchData);
+  const sortedContent = sortedBranches(branchData);
 
   const handleBranchSelection = async (item) => {
     handleSelectedBranch(
@@ -39,7 +39,7 @@ const FilteredItems = () => {
   };
 
   const filteredItems = branchSelected
-    ? sortedBranches(branchData).filter((item) =>
+    ? sortedContent.filter((item) =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : Array.isArray(tags)

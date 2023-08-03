@@ -36,11 +36,11 @@ const GitHubReadme = () => {
             </div>
 
             <ReactMarkdown
-              children={readmeContent}
+              // children={readmeContent}
               className="readmeContent"
               rehypePlugins={[rehypeRaw]}
               style={{ width: "100%" }}
-            ></ReactMarkdown>
+            >{readmeContent}</ReactMarkdown>
           </div>
         </section>
       )}

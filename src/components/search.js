@@ -11,10 +11,7 @@ const Search = ({
 }) => {
   const defaultSearchText = branchSelected
     ? selectedBranchName
-    : selectedTagName || "master" || "main";
-
-  const searchText =
-    defaultSearchText === "master" ? "main" : defaultSearchText;
+    : selectedTagName || (selectedBranchName === "master" ? "master" : "main");
 
   return (
     <div
@@ -22,7 +19,7 @@ const Search = ({
       className={!buttonClicked ? "branch-select" : "branch-button-clicked"}
     >
       <MasterIcon />
-      <span>{searchText}</span>
+      <span>{defaultSearchText}</span>
       <span>
         {" "}
         <AiFillCaretDown className="select-option-icon" />

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import BranchOrTagSwitchComponent from "./branch_tag_switch";
 import { GitContext } from "@/pages/context";
 import { fetchBranchData } from "@/pages/api/api";
-import { handleSelectedBranch } from "./branch_utilis";
+import { handleSelectedBranch, sortedBranches } from "./branch_utilis";
 import { accessToken } from "./branch_utilis";
 const SelectedItemData = () => {
   const {
@@ -21,8 +21,9 @@ const SelectedItemData = () => {
     viewAll,
     selectedItem,
     searchTerm,
+    branchData
   } = useContext(GitContext);
-
+  const sortedContent = sortedBranches(branchData);
   const handleBranchSelection = async (item) => {
     handleSelectedBranch(
       item,

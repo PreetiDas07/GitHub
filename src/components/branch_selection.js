@@ -38,13 +38,14 @@ const BranchSelection = () => {
     searchTerm,
     repositories,
     setSelectedBranchName,
+    repoSearchData
   } = useContext(GitContext);
   const [itemSelected, setItemSelected] = useState(false);
   const [validName, setValidName] = useState(false);
   const selectOptionsRef = useRef(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchBranchesNames = async () => {
       try {
         const branchDetails = await fetchBranchesDetails(
           searchTerm,
@@ -74,19 +75,22 @@ const BranchSelection = () => {
         console.error("Error fetching branch data:", error);
       }
     };
-    fetchData();
-  }, [branchSha, searchTerm]);
+    fetchBranchesNames();
+    const fetchTagNames = async () => {
+      try {
+        const allTags = await fetchTagsData(
+          searchTerm,
+          accessToken
+        );
+        setTags(allTags?.map((tag) => tag.name));
+       
+      } catch (error) {
+        console.error("Error fetching directory data:", error);
+      }
+    };
 
-  useEffect(() => {
-    fetchTagsData(searchTerm, accessToken)
-      .then((tags) => {
-        setTags(tags?.map((tag) => tag.name));
-      })
-      .catch((error) => {
-        console.error("Error fetching tags:", error);
-        return [];
-      });
-  }, [searchTerm]);
+    fetchTagNames();
+  }, [branchSha, searchTerm,repositories,repoSearchData]);
 
   useEffect(() => {
     const fetchBranchDataa = async () => {
@@ -99,7 +103,7 @@ const BranchSelection = () => {
       setBranchContents([...branches]);
     };
     fetchBranchDataa();
-  }, [branchSha, selectedBranchName, searchTerm]);
+  }, [branchSha, selectedBranchName, searchTerm,repositories,repoSearchData]);
 
   const handleSelection = () => {
     setButtonClicked(true);

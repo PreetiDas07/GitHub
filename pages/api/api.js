@@ -1,20 +1,73 @@
 import axios from "axios";
 
-const fetchLatestReleaseData = async (fullName, accessToken) => {
+// const fetchLatestReleaseData = async (fullName, accessToken) => {
+//   try {
+//     const headers = {
+//       Authorization: `token ${accessToken}`,
+//     };
+//     const response = await axios.get(
+//       `https://api.github.com/repos/${fullName}/releases`,
+//       {
+//         headers,
+//       }
+//     );
+//     if (response.data.length > 0) {
+//       return {
+//         releaseCount: response.data.length,
+//         latestRelease: response.data[0],
+//       };
+//     } else {
+//       return {
+//         releaseCount: 0,
+//         latestRelease: null,
+//       };
+//     }
+//   } catch (error) {
+//     console.error("Error fetching repositories", error);
+//     return {
+//       releaseCount: 0,
+//       latestRelease: null,
+//     };
+//   }
+// };
+
+const fetchLatestReleaseData = async (
+  fullName,
+  accessToken,
+  perPage = 100
+) => {
   try {
     const headers = {
       Authorization: `token ${accessToken}`,
     };
-    const response = await axios.get(
-      `https://api.github.com/repos/${fullName}/releases`,
-      {
-        headers,
+    const allReleases = [];
+    let page = 1;
+
+    while (true) {
+      const response = await axios.get(
+        `https://api.github.com/repos/${fullName}/releases`,
+        {
+          params: {
+            page,
+            per_page: perPage,
+          },
+          headers,
+        }
+      );
+
+      const ReleasesData = response.data;
+      if (ReleasesData.length === 0) {
+        break;
       }
-    );
-    if (response.data.length > 0) {
+
+      allReleases.push(...ReleasesData);
+      page++;
+    }
+
+    if (allReleases.length > 0) {
       return {
-        releaseCount: response.data.length,
-        latestRelease: response.data[0],
+        releaseCount: allReleases.length,
+        latestRelease: allReleases[0],
       };
     } else {
       return {
@@ -23,7 +76,7 @@ const fetchLatestReleaseData = async (fullName, accessToken) => {
       };
     }
   } catch (error) {
-    console.error("Error fetching repositories", error);
+    console.error("Error fetching directory data:", error);
     return {
       releaseCount: 0,
       latestRelease: null,
@@ -31,20 +84,44 @@ const fetchLatestReleaseData = async (fullName, accessToken) => {
   }
 };
 
-const fetchContributors = async (fullName, accessToken) => {
+
+
+const fetchContributors = async (
+  fullName,
+  accessToken,
+  perPage = 100
+) => {
   try {
     const headers = {
       Authorization: `token ${accessToken}`,
     };
-    const response = await axios.get(
-      `https://api.github.com/repos/${fullName}/contributors`,
-      {
-        headers,
+    const allContributors = [];
+    let page = 1;
+
+    while (true) {
+      const response = await axios.get(
+        `https://api.github.com/repos/${fullName}/contributors`,
+        {
+          params: {
+            page,
+            per_page: perPage,
+          },
+          headers,
+        }
+      );
+
+      const contributorsData = response.data;
+      if (contributorsData.length === 0) {
+        break;
       }
-    );
-    return response.data;
+
+      allContributors.push(...contributorsData);
+      page++;
+    }
+
+    return allContributors;
   } catch (error) {
-    console.error("Error fetching contributors:", error);
+    console.error("Error fetching directory data:", error);
     return [];
   }
 };
@@ -137,24 +214,45 @@ const fetchBranchesDetails = async (fullName, accessToken) => {
   }
 };
 
-const fetchTagsData = async (fullName, accessToken) => {
+const fetchTagsData = async (
+  fullName,
+  accessToken,
+  perPage = 100
+) => {
   try {
     const headers = {
       Authorization: `token ${accessToken}`,
     };
-    const response = await axios.get(
-      `https://api.github.com/repos/${fullName}/tags`,
-      {
-        headers,
+    const allTags = [];
+    let page = 1;
+
+    while (true) {
+      const response = await axios.get(
+        `https://api.github.com/repos/${fullName}/tags`,
+        {
+          params: {
+            page,
+            per_page: perPage,
+          },
+          headers,
+        }
+      );
+
+      const tagsData = response.data;
+      if (tagsData.length === 0) {
+        break;
       }
-    );
-    return response.data;
+
+      allTags.push(...tagsData);
+      page++;
+    }
+
+    return allTags;
   } catch (error) {
     console.error("Error fetching directory data:", error);
     return [];
   }
 };
-
 const fetchCommits = async (
   fullName,
   selectedBranchName,
