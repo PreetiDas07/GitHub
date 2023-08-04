@@ -1,8 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 import { Space, Tag } from "antd";
 import React, { useState, useEffect, useContext } from "react";
 import { ReadOutlined, StarOutlined, ForkOutlined } from "@ant-design/icons";
 import Image from "next/image";
-// import { RepoContext } from "./RepoContext";
 import { GitContext } from "@/pages/context";
 import { accessToken } from "./branch_utilis";
 import {BsTag} from "react-icons/bs"
@@ -56,7 +56,7 @@ export default function About() {
         setProgressData(data);
       })
       .catch((error) => console.error("Error fetching data:", error));
-  }, [repoSearchData]);
+  }, [searchTerm,repoSearchData]);
 
   const aboutIconsData = [
     {

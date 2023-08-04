@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useContext } from "react";
 import { FileOutlined } from "@ant-design/icons";
 import { GitContext } from "@/pages/context";
@@ -14,6 +15,7 @@ const BranchContents = () => {
     subContentClicked,
     setSubContentClicked,
     buttonClicked,
+    repoSearchData
   } = useContext(GitContext);
 
   const router = useRouter();
@@ -48,7 +50,7 @@ const BranchContents = () => {
       </div>
 
       <div className="branchContents">
-        {branchContents &&
+        {repoSearchData &&
           !subContentClicked &&
           sortedBranchContents.map((content, index) => (
             <div key={index} className="branch-item">

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 const handleSelectedBranch = (
   item,
   branchSelected,
@@ -75,7 +76,7 @@ const sortFilesAndFolders = (contents) => {
   });
 };
 
-const accessToken = "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";
+const accessToken = "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";
 
 export {
   sortedBranches,

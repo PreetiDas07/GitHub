@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import { GitContext } from "@/pages/context";
@@ -38,7 +39,7 @@ const BranchSelection = () => {
     searchTerm,
     repositories,
     setSelectedBranchName,
-    repoSearchData
+    repoSearchData,branchContents
   } = useContext(GitContext);
   const [itemSelected, setItemSelected] = useState(false);
   const [validName, setValidName] = useState(false);
@@ -90,7 +91,7 @@ const BranchSelection = () => {
     };
 
     fetchTagNames();
-  }, [branchSha, searchTerm,repositories,repoSearchData]);
+  }, [branchSha,repositories,repoSearchData]);
 
   useEffect(() => {
     const fetchBranchDataa = async () => {
@@ -100,10 +101,11 @@ const BranchSelection = () => {
         branchSha,
         accessToken
       );
+      console.log({branches})
       setBranchContents([...branches]);
     };
     fetchBranchDataa();
-  }, [branchSha, selectedBranchName, searchTerm,repositories,repoSearchData]);
+  }, [branchSha, selectedBranchName,repositories,repoSearchData]);
 
   const handleSelection = () => {
     setButtonClicked(true);
@@ -134,7 +136,7 @@ const BranchSelection = () => {
   };
   return (
     <div className="branch-selection-main-div">
-      {!itemSelected && searchTerm && (
+      {!itemSelected  &&  (
         <div>
           <Search
             buttonClicked={buttonClicked}

@@ -309,8 +309,6 @@ body {
 
 .commits-count {
   display: flex;
-
-  margin-left: 3.84px;
   color: #c9d1d9;
   font-family: Noto Sans;
   font-size: 13px;
@@ -447,7 +445,7 @@ body {
     border: 1px solid #30363d;
     background: #161b22;
     display: flex;
-    gap: 200px;
+    gap: 100px;
   }
 
   .commit {

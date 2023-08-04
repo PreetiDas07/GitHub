@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState, useContext } from "react";
 import { GitContext } from "@/pages/context";
 import { fetchCommits } from "@/pages/api/api";
@@ -50,7 +51,7 @@ const BranchTitle = () => {
     };
 
     fetchData();
-  }, [selectedBranchName, repositories]);
+  }, [selectedBranchName, searchTerm]);
 
   const truncateMessage = (message, maxLength) => {
     return message.length > maxLength

@@ -1,36 +1,5 @@
 import axios from "axios";
 
-// const fetchLatestReleaseData = async (fullName, accessToken) => {
-//   try {
-//     const headers = {
-//       Authorization: `token ${accessToken}`,
-//     };
-//     const response = await axios.get(
-//       `https://api.github.com/repos/${fullName}/releases`,
-//       {
-//         headers,
-//       }
-//     );
-//     if (response.data.length > 0) {
-//       return {
-//         releaseCount: response.data.length,
-//         latestRelease: response.data[0],
-//       };
-//     } else {
-//       return {
-//         releaseCount: 0,
-//         latestRelease: null,
-//       };
-//     }
-//   } catch (error) {
-//     console.error("Error fetching repositories", error);
-//     return {
-//       releaseCount: 0,
-//       latestRelease: null,
-//     };
-//   }
-// };
-
 const fetchLatestReleaseData = async (
   fullName,
   accessToken,
@@ -334,25 +303,29 @@ const fetchBranchData = async (
       }
     );
 
-    const branches = await Promise.all(
+    const res = await Promise.all(
       response.data.map(async (branch) => {
-        const commitResponse = await axios.get(
+
+        return axios.get(
           `https://api.github.com/repos/${fullName}/commits?path=${branch.path}&sha=${branchSha}`,
           {
             headers,
           }
         );
-        const commitMessage =
-          commitResponse.data[0]?.commit.message || "No commit message";
-        const truncatedMessage = truncateMessage(commitMessage, 70);
-        return {
-          name: branch.name,
-          type: branch.type,
-          message: truncatedMessage,
-          sha: branch.sha,
-        };
       })
-    );
+    )
+    const branches = res.map((commitResponse, index) => {
+      const commitMessage =
+        commitResponse.data[0]?.commit.message || "No commit message";
+      const truncatedMessage = truncateMessage(commitMessage, 50);
+      return {
+        name: response.data[index].name,
+        type: response.data[index].type,
+        message: truncatedMessage,
+        sha: response.data[index].sha,
+      };
+    })
+
     return branches;
   } catch (error) {
     console.error("Error fetching branches data:", error);
